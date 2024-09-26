@@ -7,19 +7,33 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+@font-face {
+  font-family: "Pretendard Variable";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/Pretendard Variable@v1.3.6/dist/web/variable/Pretendard Variablevariable-dynamic-subset.css")
+    format("woff");
+  font-style: normal;
 }
 
-body {
+/* body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard Variable", sans-serif;
+} */
+body {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  border-left: 1px solid #e0e0d1;
+  border-right: 1px solid #e0e0d1;
+  background-color: #ffffff;
 }
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
