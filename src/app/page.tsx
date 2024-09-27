@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <h1>Hello, Next.js!</h1>
+      <h1>안녕하세요, 아몬드 입니다!</h1>
     </div>
   );
 }
