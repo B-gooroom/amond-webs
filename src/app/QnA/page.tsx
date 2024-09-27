@@ -20,7 +20,7 @@ export default async function QnA() {
     return <div>Error fetching data</div>;
   }
 
-  console.log("notes", notes);
+  // console.log("notes", notes);
 
   return (
     <div className="w-full h-full">
