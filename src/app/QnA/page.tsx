@@ -1,6 +1,5 @@
 // "use client";
 
-import Header from "@/app/components/Header/page";
 import List from "@/app/components/List/page";
 import { Spacer } from "@/app/components/Spacer/page";
 import Banner from "./components/Banner/page";
@@ -24,7 +23,7 @@ export default async function QnA() {
 
   return (
     <div className="w-full h-full">
-      <Header title="질문하다" items={["search", "noti"]} />
+      {/* <Header title="질문하다" items={["search", "noti"]} /> */}
       <section className="px-16 pt-16 flex-col flex gap-16">
         <p className="text-subtitle1">🙋🏻 오늘의 질문</p>
         {/* {Array.from({ length: POPULAR_QUESTIONS }).map((_, index) => (
