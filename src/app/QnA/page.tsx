@@ -4,7 +4,7 @@ import Header from "@/app/components/Header/page";
 import List from "@/app/components/List/page";
 import { Spacer } from "@/app/components/Spacer/page";
 import Banner from "./components/Banner/page";
-import Popular from "./components/Popular/page";
+// import Popular from "./components/Popular/page";
 
 import { createClient } from "../../utils/supabase/server";
 
@@ -30,7 +30,7 @@ export default async function QnA() {
         {/* {Array.from({ length: POPULAR_QUESTIONS }).map((_, index) => (
           <Popular key={index} index={index + 1} comments={3} views={900} />
         ))} */}
-        {notes.map((note, index) => {
+        {/* {notes.map((note, index) => {
           const { title, comments, views } = note;
           return (
             <Popular
@@ -41,7 +41,7 @@ export default async function QnA() {
               views={(views as number) || 0}
             />
           );
-        })}
+        })} */}
       </section>
       <Spacer className="h-32" />
       <div className="px-16">
