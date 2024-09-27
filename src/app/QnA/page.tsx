@@ -36,9 +36,9 @@ export default async function QnA() {
             <Popular
               key={note.id}
               index={index + 1}
-              title={title}
-              comments={comments || 0}
-              views={views || 0}
+              title={title as string}
+              comments={(comments as number) || 0}
+              views={(views as number) || 0}
             />
           );
         })}
