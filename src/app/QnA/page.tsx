@@ -1,9 +1,10 @@
 // "use client";
 
-import List from "@/app/components/List/page";
-import { Spacer } from "@/app/components/Spacer/page";
-import Banner from "./components/Banner/page";
-// import Popular from "./components/Popular/page";
+import Header from "@/components/Header/page";
+import List from "@/components/List/page";
+import { Spacer } from "@/components/Spacer/page";
+import Banner from "./components/Banner";
+import Popular from "./components/Popular";
 
 import { createClient } from "../../utils/supabase/server";
 
@@ -23,13 +24,13 @@ export default async function QnA() {
 
   return (
     <div className="w-full h-full">
-      {/* <Header title="질문하다" items={["search", "noti"]} /> */}
+      <Header title="질문하다" items={["search", "noti"]} />
       <section className="px-16 pt-16 flex-col flex gap-16">
         <p className="text-subtitle1">🙋🏻 오늘의 질문</p>
         {/* {Array.from({ length: POPULAR_QUESTIONS }).map((_, index) => (
           <Popular key={index} index={index + 1} comments={3} views={900} />
         ))} */}
-        {/* {notes.map((note, index) => {
+        {notes.map((note, index) => {
           const { title, comments, views } = note;
           return (
             <Popular
@@ -40,7 +41,7 @@ export default async function QnA() {
               views={(views as number) || 0}
             />
           );
-        })} */}
+        })}
       </section>
       <Spacer className="h-32" />
       <div className="px-16">
