@@ -5,12 +5,7 @@ interface PopularProps {
   views: number;
 }
 
-export default function Popular({
-  index,
-  title,
-  comments,
-  views,
-}: PopularProps) {
+function Popular({ index, title, comments, views }: PopularProps) {
   return (
     <div className="flex gap-14 border px-16 py-24 rounded-2xl">
       <div className="text-subtitle1">{index}</div>
@@ -24,3 +19,5 @@ export default function Popular({
     </div>
   );
 }
+
+export default Popular;
