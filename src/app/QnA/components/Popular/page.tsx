@@ -5,16 +5,18 @@ interface PopularProps {
   views: number;
 }
 
-const Popular: React.FC<PopularProps> = (props) => {
+// const TalkItem = ({title, desc }) => {
+const Popular = ({ index, title, comments, views }: PopularProps) => {
+  // const Popular: React.FC<PopularProps> = ({props}) => {
   // const Popular = ({ index, title, comments, views }: PopularProps) => {
   return (
     <div>
       <div className="flex gap-14 border px-16 py-24 rounded-2xl">
-        <div className="text-subtitle1">{props.index}</div>
+        <div className="text-subtitle1">{index}</div>
         <div className="flex-col gap-8 flex">
-          <p className="text-body2">{props.title}</p>
+          <p className="text-body2">{title}</p>
           <p className="text-caption1 text-ad-gray-500">
-            답변 {props.comments} ･ 조회수 {props.views}
+            답변 {comments} ･ 조회수 {views}
           </p>
         </div>
       </div>
