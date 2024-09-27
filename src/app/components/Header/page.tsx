@@ -8,7 +8,7 @@ interface HeaderProps {
   items?: string[];
 }
 
-function Header({ title, items }: HeaderProps) {
+export default function Header({ title, items }: HeaderProps) {
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
@@ -61,5 +61,3 @@ function Header({ title, items }: HeaderProps) {
     </nav>
   );
 }
-
-export default Header;
