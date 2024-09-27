@@ -45,3 +45,7 @@
 // // }
 
 // export default Popular;
+
+export default function Popular() {
+  // 컴포넌트 내용
+}
