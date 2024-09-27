@@ -35,10 +35,11 @@ export default async function QnA() {
           return (
             <Popular
               key={note.id}
-              index={index + 1}
-              title={title as string}
-              comments={(comments as number) || 0}
-              views={(views as number) || 0}
+              params={note}
+              // index={index + 1}
+              // title={title as string}
+              // comments={(comments as number) || 0}
+              // views={(views as number) || 0}
             />
           );
         })}
