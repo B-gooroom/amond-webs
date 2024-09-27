@@ -1,16 +1,21 @@
-interface PopularProps {
-  index: number;
-  title: string;
-  comments: number;
-  views: number;
-}
+// interface PopularProps {
+//   index: number;
+//   title: string;
+//   comments: number;
+//   views: number;
+// }
 
 export default function Popular({
   index,
   title,
   comments,
   views,
-}: PopularProps) {
+}: {
+  index: number;
+  title: string;
+  comments: number;
+  views: number;
+}) {
   return (
     <div className="flex gap-14 border px-16 py-24 rounded-2xl">
       <div className="text-subtitle1">{index}</div>
