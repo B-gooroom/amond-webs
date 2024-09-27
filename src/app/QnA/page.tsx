@@ -8,7 +8,7 @@ import Popular from "./components/Popular/page";
 
 import { createClient } from "../../utils/supabase/server";
 
-const POPULAR_QUESTIONS = 3;
+// const POPULAR_QUESTIONS = 3;
 const QNA_LIST = 5;
 
 export default async function QnA() {
