@@ -43,8 +43,6 @@ export default function Icon({ icon, size, className, ...props }: IconProps) {
     );
   }
 
-  console.log(ImportedIcon);
-
   return (
     <ImportedIcon
       className={classnames("inline-block flex-shrink-0", className)}

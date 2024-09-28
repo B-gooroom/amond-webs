@@ -14,3 +14,15 @@ export type Note = {
 //   description?: string;
 //   imageUrl?: string;
 // };
+
+export type QnA = {
+  id: number;
+  title: string;
+  content: string;
+  category_id: number;
+  user_id: string;
+  created_at: Date;
+  updated_at: Date;
+  is_deleted: boolean;
+  is_popular: boolean;
+};
