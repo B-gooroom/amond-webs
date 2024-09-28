@@ -34,6 +34,22 @@ body {
   border-right: 1px solid #e0e0d1;
   background-color: #ffffff;
 }
+
+.tab {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  border-left: 1px solid #e0e0d1;
+  border-right: 1px solid #e0e0d1;
+  border-top: 1px solid #e0e0d1;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 79px;
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
