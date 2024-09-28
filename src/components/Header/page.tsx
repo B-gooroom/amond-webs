@@ -2,6 +2,8 @@
 
 import classnames from "classnames";
 import { useEffect, useState } from "react";
+import Icon from "../Icon/page";
+// import SvgIcon from "assets/images/icon.svg";
 
 interface HeaderProps {
   title: string;
@@ -39,21 +41,22 @@ export default function Header({ title, items }: HeaderProps) {
       )}
     >
       <div className="flex items-center justify-between w-full text-black">
-        {/* <Image
-          src="/logo_white.svg"
-          alt="whew_logo"
-          width={62}
-          height={32}
-          className={classnames(width < 500 ? "w-16" : "w-24")}
+        <p
+          className="text-h3"
           onClick={() => {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-        /> */}
-        <p className="text-h3">{title}</p>
+        >
+          {title}
+        </p>
         {items && (
           <div className="flex justify-between gap-8">
             {items.map((item, index) => {
-              return <button key={index}>{item}</button>;
+              return (
+                <div key={index}>
+                  <Icon icon={item} size={24} className="fill-ad-black" />
+                </div>
+              );
             })}
           </div>
         )}
