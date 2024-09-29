@@ -18,14 +18,23 @@ export default function RootLayout({
   const [isNative, setIsNative] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("message", (event) => {
+    const handleMessage = (event: MessageEvent) => {
+      // 이벤트 데이터가 'native'일 때만 상태 변경
       if (event.data === "native") {
         setIsNative(true);
+        console.log("Received native message:", event.data); // 디버깅용 로그
       }
-    });
-  }, [isNative]);
+    };
 
-  if (isNative) return null; // 네이티브일 때는 탭바를 렌더링하지 않음
+    window.addEventListener("message", handleMessage);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 정리
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
+  // if (isNative) return null; // 네이티브일 때는 탭바를 렌더링하지 않음
 
   return (
     <html lang="en">
