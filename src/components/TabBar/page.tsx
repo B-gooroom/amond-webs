@@ -1,4 +1,3 @@
-"use client";
 import classNames from "classnames";
 import { usePathname, useRouter } from "next/navigation";
 import Icon from "../Icon/page";

@@ -48,7 +48,9 @@ body {
   left: 0;
   right: 0;
   z-index: 10;
+  /* web에서는 79가 어울리고, app 에서는 60이 어울림 */
   height: 79px;
+  /* height: 60px; */
 }
 @layer utilities {
   .text-balance {

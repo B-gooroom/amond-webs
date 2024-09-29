@@ -26,7 +26,7 @@ export default async function QnA() {
           const { title, comments, views } = note;
           return (
             <Popular
-              key={note.id}
+              key={index}
               index={index + 1}
               title={title as string}
               comments={(comments as number) || 0}
