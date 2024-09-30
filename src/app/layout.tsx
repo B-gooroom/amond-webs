@@ -1,6 +1,5 @@
 "use client";
 
-// import type { Metadata } from "next";
 import TabBar from "@/components/TabBar/page";
 import { useEffect, useState } from "react";
 import "./globals.css";
@@ -15,32 +14,41 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isNative, setIsNative] = useState(false);
+  const [isNative, setIsNative] = useState<boolean | null>(null);
 
+  /** native 방식 */
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      // 이벤트 데이터가 'native'일 때만 상태 변경
       if (event.data === "native") {
         setIsNative(true);
-        console.log("Received native message:", event.data); // 디버깅용 로그
       }
     };
 
+    // 사용자 에이전트 검사
+    const userAgent = window.navigator.userAgent;
+    if (
+      /android/i.test(userAgent) ||
+      /iPad|iPhone|iPod/.test(userAgent) ||
+      /windows phone/i.test(userAgent) ||
+      /web/i.test(window.navigator.userAgent)
+    ) {
+      setIsNative(false); // 네이티브가 아님
+    }
+
     window.addEventListener("message", handleMessage);
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 정리
     return () => {
       window.removeEventListener("message", handleMessage);
     };
   }, []);
 
-  // if (isNative) return null; // 네이티브일 때는 탭바를 렌더링하지 않음
+  // console.log("isNative: ", isNative); // 디버깅용 로그
 
   return (
     <html lang="en">
       <body>
         {children}
-        {!isNative && <TabBar />}
+        {isNative === false && <TabBar />}
       </body>
     </html>
   );
