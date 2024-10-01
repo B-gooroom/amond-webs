@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Icon from "../Icon/page";
 
 interface TabProps {
@@ -11,19 +12,19 @@ interface TabProps {
 
 const tabs = [
   {
-    path: "/QnA",
+    path: "/qna",
     label: "질문하다",
     activeIcon: "IconQnAActive",
     inactiveIcon: "IconQnA",
   },
   {
-    path: "/Board",
+    path: "/board",
     label: "소통하다",
     activeIcon: "IconBoardActive",
     inactiveIcon: "IconBoard",
   },
   {
-    path: "/Profile",
+    path: "/profile",
     label: "소개하다",
     activeIcon: "IconProfileActive",
     inactiveIcon: "IconProfile",
@@ -31,14 +32,15 @@ const tabs = [
 ];
 
 export default function TabBar() {
-  const router = useRouter();
+  // const router = useRouter();
   const currentPath = usePathname();
 
   const renderTab = ({ path, label, activeIcon, inactiveIcon }: TabProps) => (
-    <button
+    <Link
       key={path}
       className="flex flex-col items-center"
-      onClick={() => router.push(path)}
+      href={path}
+      // onClick={() => router.push(path)}
     >
       <Icon icon={currentPath === path ? activeIcon : inactiveIcon} />
       <p
@@ -49,7 +51,7 @@ export default function TabBar() {
       >
         {label}
       </p>
-    </button>
+    </Link>
   );
 
   return (
