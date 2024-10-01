@@ -24,7 +24,7 @@ const tabs = [
     inactiveIcon: "IconBoard",
   },
   {
-    path: "/profile",
+    path: "/profiles",
     label: "소개하다",
     activeIcon: "IconProfileActive",
     inactiveIcon: "IconProfile",
