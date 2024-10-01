@@ -52,7 +52,7 @@ export default function Header({
       )}
     >
       {leftItem && (
-        <div>
+        <div className="cursor-pointer">
           <Icon icon={leftItem} size={24} className="fill-ad-black" />
         </div>
       )}
