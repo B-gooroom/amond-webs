@@ -1,9 +1,20 @@
+"use client";
+
 import Header from "@/components/Header/page";
+import { useRouter } from "next/navigation";
 
 export default function Post() {
+  const router = useRouter();
+
+  const handleBackClick = () => {
+    router.back(); // history의 이전 페이지로 이동
+  };
+
   return (
     <div>
-      <Header title="글쓰기" items={["IconSearch", "IconNotification"]} />
+      <div onClick={handleBackClick}>
+        <Header title="글쓰기" leftItem={"IconClose"} />
+      </div>
     </div>
   );
 }
