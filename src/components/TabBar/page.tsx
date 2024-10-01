@@ -12,7 +12,7 @@ interface TabProps {
 
 const tabs = [
   {
-    path: "/qnas",
+    path: "/qna",
     label: "질문하다",
     activeIcon: "IconQnAActive",
     inactiveIcon: "IconQnA",
