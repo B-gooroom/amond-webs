@@ -13,7 +13,7 @@ import Popular from "./components/Popular";
 
 const QNA_LIST = 5;
 
-export default async function QnA() {
+export default async function qna() {
   const supabase = createClient();
   const popularQnas = await popularQna(supabase);
 
