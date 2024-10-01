@@ -1,7 +1,7 @@
 import Header from "@/components/Header/page";
 import Image from "next/image";
 
-export default function Board() {
+export default function Boards() {
   return (
     <div className="w-full h-full">
       <Header
