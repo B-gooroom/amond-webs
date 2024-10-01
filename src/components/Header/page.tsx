@@ -7,10 +7,19 @@ import Icon from "../Icon/page";
 
 interface HeaderProps {
   title: string;
-  items?: string[];
+  rightItems?: string[];
+  leftItem?: string;
+  center?: boolean;
+  className?: string;
 }
 
-export default function Header({ title, items }: HeaderProps) {
+export default function Header({
+  title,
+  rightItems,
+  leftItem,
+  center,
+  className,
+}: HeaderProps) {
   const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
@@ -36,31 +45,39 @@ export default function Header({ title, items }: HeaderProps) {
   return (
     <nav
       className={classnames(
-        "flex items-center justify-start bg-white w-full sticky top-0",
+        className,
+        "flex items-center bg-white w-full sticky top-0 justify-between",
         width < 500 ? "py-16 px-20" : "py-[34px] px-[32px]"
+        // center ? "justify-between" : "justify-between" // 추가로 할 작업이 분명히 있을 듯
       )}
     >
-      <div className="flex items-center justify-between w-full text-black">
-        <p
-          className="text-h3"
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-        >
-          {title}
-        </p>
-        {items && (
-          <div className="flex justify-between gap-8">
-            {items.map((item, index) => {
-              return (
-                <div key={index}>
-                  <Icon icon={item} size={24} className="fill-ad-black" />
-                </div>
-              );
-            })}
-          </div>
-        )}
+      {leftItem && (
+        <div>
+          <Icon icon={leftItem} size={24} className="fill-ad-black" />
+        </div>
+      )}
+      <div
+        className={"text-black text-h3"}
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+      >
+        {/* // className={classnames("text-h3", center && "mx-auto")} */}
+        {title}
       </div>
+      {rightItems ? (
+        <div className="flex justify-between gap-8">
+          {rightItems.map((item, index) => {
+            return (
+              <div key={index}>
+                <Icon icon={item} size={24} className="fill-ad-black" />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div className="w-24"></div>
+      )}
     </nav>
   );
 }
