@@ -1,7 +1,8 @@
 export default function Home() {
   return (
-    <div>
+    <div className="h-[100vh]">
       <h1>안녕하세요, 아몬드 입니다!</h1>
+      {/* <p>아이템 설명 및 보딩 페이지 추가 논의</p> */}
     </div>
   );
 }
