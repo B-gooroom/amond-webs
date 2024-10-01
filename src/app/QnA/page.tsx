@@ -5,7 +5,9 @@ import List from "@/components/List/page";
 import { Spacer } from "@/components/Spacer/page";
 import Banner from "./components/Banner";
 
+import PostButton from "@/components/PostButton/page";
 import { createClient } from "@/utils/supabase/server";
+import Link from "next/link";
 import { popularQna } from "../../services/popular-qna";
 import Popular from "./components/Popular";
 
@@ -54,6 +56,9 @@ export default async function QnA() {
           />
         ))}
       </section>
+      <PostButton>
+        <Link href="/post">+ 글쓰기</Link>
+      </PostButton>
     </div>
   );
 }
