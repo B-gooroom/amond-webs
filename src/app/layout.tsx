@@ -1,6 +1,7 @@
 "use client";
 
 import TabBar from "@/components/TabBar/page";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import "./globals.css";
 
@@ -16,6 +17,7 @@ export default function RootLayout({
 }) {
   const [isNative, setIsNative] = useState<boolean | null>(null);
   const [hideTabBar, setHideTabBar] = useState<boolean>(false); // TabBar 숨기기 상태
+  const currentPath = usePathname();
 
   /** native 방식 */
   useEffect(() => {
@@ -45,14 +47,13 @@ export default function RootLayout({
 
   // hideTabBar를 children의 pathname에 따라 설정
   useEffect(() => {
-    const pathname = window.location.pathname;
     // 특정 경로에 따라 TabBar 숨기기
-    if (pathname === "/post") {
+    if (currentPath === "/post") {
       setHideTabBar(true);
     } else {
       setHideTabBar(false);
     }
-  }, [children]); // children이 변경될 때마다 경로 확인
+  }, [currentPath]); // children이 변경될 때마다 경로 확인
   // console.log("isNative: ", isNative); // 디버깅용 로그
 
   return (
