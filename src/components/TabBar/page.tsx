@@ -18,7 +18,7 @@ const tabs = [
     inactiveIcon: "IconQnA",
   },
   {
-    path: "/boards",
+    path: "/board",
     label: "소통하다",
     activeIcon: "IconBoardActive",
     inactiveIcon: "IconBoard",
