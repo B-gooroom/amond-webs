@@ -3,13 +3,13 @@
 import Header from "@/components/Header/page";
 import List from "@/components/List/page";
 import { Spacer } from "@/components/Spacer/page";
-import Banner from "./components/Banner";
+import Banner from "../qna/components/Banner";
 
 import PostButton from "@/components/PostButton/page";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { popularQna } from "../../services/popular-qna";
-import Popular from "./components/Popular";
+import Popular from "../qna/components/Popular";
 
 const QNA_LIST = 5;
 
