@@ -11,19 +11,19 @@ interface TabProps {
 
 const tabs = [
   {
-    path: "/qna",
+    path: "/QnA",
     label: "질문하다",
     activeIcon: "IconQnAActive",
     inactiveIcon: "IconQnA",
   },
   {
-    path: "/board",
+    path: "/Board",
     label: "소통하다",
     activeIcon: "IconBoardActive",
     inactiveIcon: "IconBoard",
   },
   {
-    path: "/profile",
+    path: "/Profile",
     label: "소개하다",
     activeIcon: "IconProfileActive",
     inactiveIcon: "IconProfile",
