@@ -29,14 +29,18 @@ export default async function QnA() {
         <section className="px-16 pt-16 flex-col flex gap-16">
           <p className="text-subtitle1">🙋🏻 오늘의 질문</p>
           {popularQnas.map((note, index) => {
-            const { title, comments, views } = note;
+            const { title, qnaComment = [], qnaView = [] } = note;
+
+            const commentsCount = qnaComment.length;
+            const viewCount = qnaView.length > 0 ? qnaView[0].view_count : 0;
+
             return (
               <Popular
                 key={index}
                 index={index + 1}
                 title={title as string}
-                comments={(comments as number) || 0}
-                views={(views as number) || 0}
+                comments={(commentsCount as number) || 0}
+                views={(viewCount as number) || 0}
               />
             );
           })}
