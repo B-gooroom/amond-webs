@@ -22,10 +22,7 @@ export default async function QnA() {
   return (
     <>
       <div className="w-full h-full">
-        <Header
-          title="질문하다"
-          rightItems={["IconSearch", "IconNotification"]}
-        />
+        <Header title="질문하다" rightItems={["search", "notification"]} />
         <section className="px-16 pt-16 flex-col flex gap-16">
           <p className="text-subtitle1">🙋🏻 오늘의 질문</p>
           {popularQnas.map((note, index) => {

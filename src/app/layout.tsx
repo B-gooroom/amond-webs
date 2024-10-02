@@ -48,7 +48,7 @@ export default function RootLayout({
   // hideTabBar를 children의 pathname에 따라 설정
   useEffect(() => {
     // 특정 경로에 따라 TabBar 숨기기
-    if (currentPath === "/post") {
+    if (currentPath === "/post" || currentPath === "/notification") {
       setHideTabBar(true);
     } else {
       setHideTabBar(false);
@@ -58,11 +58,13 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body
+        style={
+          hideTabBar ? { height: "100vh" } : { height: "calc(100vh + 79px)" }
+        }
+      >
         {children}
-        <div className="pb-[99px]">
-          {!hideTabBar && isNative === false && <TabBar />}
-        </div>
+        {!hideTabBar && isNative === false && <TabBar />}
       </body>
     </html>
   );
