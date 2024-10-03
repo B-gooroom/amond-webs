@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "ko_KR",
-    url: "https://amond.kr/qna",
+    url: "https://amond.kr/",
     title: "카페의 모든 것 | 아몬드",
     description: "카페의 모든 것을 한눈에 볼 수 있는 곳, 아몬드입니다.",
     siteName: "카페의 모든 것 | 아몬드",
