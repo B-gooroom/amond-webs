@@ -21,11 +21,6 @@
   font-style: normal;
 }
 
-/* body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: "Pretendard Variable", sans-serif;
-} */
 body {
   width: 100%;
   max-width: 500px;
@@ -33,6 +28,7 @@ body {
   border-left: 1px solid #e0e0d1;
   border-right: 1px solid #e0e0d1;
   background-color: #ffffff;
+  height: 100%;
 }
 
 .tab {
