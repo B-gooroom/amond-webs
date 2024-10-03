@@ -15,7 +15,7 @@ export default function Head() {
       <meta property="og:description" content={description} />
       <meta property="og:image" content={imageUrl} />
       <meta property="og:url" content={siteUrl} />
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content="website good" />
       <meta property="og:site_name" content={title} />
       <meta property="og:locale" content="ko_KR" />
       <meta
