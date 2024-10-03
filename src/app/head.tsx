@@ -8,16 +8,15 @@ export default function Head() {
   return (
     <>
       <title>{title}</title>
-      <meta name="description" content="전역 페이지 설명" />
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
-      <meta property="og:description" content="페이지 설명" />
+      <meta property="og:description" content={description} />
       <meta property="og:image" content={imageUrl} />
       <meta property="og:url" content={siteUrl} />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="아몬드" />
+      <meta property="og:site_name" content={title} />
       <meta property="og:locale" content="ko_KR" />
       <meta
         name="keywords"
