@@ -8,26 +8,30 @@ import { Spacer } from "@/components/Spacer/page";
 import { getAgeGroup } from "@/utils/ageConverter";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Edit() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [userNickname, setUserNickname] = useState(
-    searchParams.get("nickname") || ""
-  );
-  const [userAgeGroup, setUserAgeGroup] = useState(
-    getAgeGroup(parseInt(searchParams.get("age") || ""))
-  );
-  const [userRegion, setUserRegion] = useState(
-    searchParams.get("region") || ""
-  );
-  const [userIntroduce, setUserIntroduce] = useState(
-    searchParams.get("introduce") || ""
-  );
+  const [userNickname, setUserNickname] = useState("");
+  const [userAgeGroup, setUserAgeGroup] = useState("");
+  const [userRegion, setUserRegion] = useState("");
+  const [userIntroduce, setUserIntroduce] = useState("");
+
+  useEffect(() => {
+    const nickname = searchParams.get("nickname") || "";
+    const age = searchParams.get("age") || "";
+    const region = searchParams.get("region") || "";
+    const introduce = searchParams.get("introduce") || "";
+
+    setUserNickname(nickname);
+    setUserAgeGroup(getAgeGroup(parseInt(age)));
+    setUserRegion(region);
+    setUserIntroduce(introduce);
+  }, [searchParams]);
 
   const handleBackClick = () => {
-    router.back(); // history의 이전 페이지로 이동
+    router.back();
   };
 
   const addPhoto = () => {
@@ -37,12 +41,12 @@ export default function Edit() {
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     setUserNickname(e.target.value);
-    console.log("nickname", e.target.value);
   };
 
   const handleAgeSelect = (selectedAge: string) => {
     setUserAgeGroup(selectedAge);
   };
+
   const handleRegionSelect = (selectedRegion: string) => {
     setUserRegion(selectedRegion);
   };
@@ -54,6 +58,7 @@ export default function Edit() {
         <span className="absolute text-body2 top-16 right-16">완료</span>
       </div>
       <Spacer className="h-24" />
+
       <div className="flex justify-center">
         <div
           className="relative"
