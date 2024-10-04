@@ -19,8 +19,7 @@ export default function Icon({ icon, size, className, ...props }: IconProps) {
     const importSvgIcon = async (): Promise<void> => {
       try {
         setLoading(true);
-        const newIcon = (await import(`@/assets/icons/${icon}.svg?react`))
-          .default;
+        const newIcon = (await import(`@/assets/icons/${icon}.svg`)).default;
         setImportedIcon(() => newIcon);
       } catch (err) {
         setError(err);
