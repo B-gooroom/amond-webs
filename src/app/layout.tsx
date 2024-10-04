@@ -43,7 +43,12 @@ export default function RootLayout({
   // hideTabBar를 children의 pathname에 따라 설정
   useEffect(() => {
     // 특정 경로에 따라 TabBar 숨기기
-    if (currentPath === "/post" || currentPath === "/notification") {
+    if (
+      currentPath === "/post" ||
+      currentPath === "/notification" ||
+      currentPath === "/profile/setting" ||
+      currentPath === "/setting"
+    ) {
       setHideTabBar(true);
     } else {
       setHideTabBar(false);

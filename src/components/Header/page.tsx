@@ -31,7 +31,7 @@ const routerLink: RouterLinkProps = {
     icon: "IconSearch",
   },
   setting: {
-    path: "/",
+    path: "/setting",
     icon: "IconSetting",
   },
   // Add more mappings as needed
