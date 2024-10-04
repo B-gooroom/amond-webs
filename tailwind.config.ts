@@ -21,6 +21,7 @@ const config: Config = {
           500: "#9E9E9E",
           100: "#F5F5F5",
         },
+        "ad-red": "#FF5247",
         "ad-white": "#FFFFFF",
       },
       fontSize: {
@@ -99,6 +100,7 @@ const config: Config = {
         // 기본적으로 rem 단위로 설정되어 있으므로 직접 px 단위로 설정
         "4": "4px",
         "8": "8px",
+        "10": "10px",
         "12": "12px",
         "14": "14px",
         "16": "16px",
