@@ -3,7 +3,6 @@
 import classnames from "classnames";
 import Link from "next/link";
 import Icon from "../Icon/page";
-// import SvgIcon from "assets/images/icon.svg";
 
 interface HeaderProps {
   title: string;
@@ -84,7 +83,6 @@ export default function Header({
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       >
-        {/* // className={classnames("text-h3", center && "mx-auto")} */}
         {title}
       </div>
       {rightItems ? (

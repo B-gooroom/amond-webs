@@ -46,7 +46,7 @@ export default function RootLayout({
     if (
       currentPath === "/post" ||
       currentPath === "/notification" ||
-      currentPath === "/profile/setting" ||
+      currentPath === "/profile/edit" ||
       currentPath === "/setting"
     ) {
       setHideTabBar(true);

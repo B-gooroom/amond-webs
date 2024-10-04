@@ -30,7 +30,7 @@ export default async function Profile() {
               <p className="text-subtitle2">{userData.nickname}</p>
               <Link
                 href={{
-                  pathname: "/profile/setting",
+                  pathname: "/profile/edit",
                   query: {
                     nickname: userData.nickname,
                     introduce: userData.introduce,
