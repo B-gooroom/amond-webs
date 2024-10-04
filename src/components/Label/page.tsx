@@ -31,7 +31,7 @@ export default function Label({ children, size, color }: LabelProps) {
     <div>
       <span
         className={classnames(
-          "border text-caption1 rounded-2xl px-16 py-8",
+          "text-caption1 rounded-2xl px-16 py-8",
           color === "brown"
             ? "bg-ad-brown-800"
             : color === "gray"

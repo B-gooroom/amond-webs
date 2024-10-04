@@ -15,7 +15,7 @@ export async function profileUser(supabase: SupabaseClient) {
     return [];
   }
 
-  console.log("userData", userData);
+  // console.log("userData", userData);
 
   return userData;
 }
