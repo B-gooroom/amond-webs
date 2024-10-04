@@ -2,7 +2,6 @@
 
 import classnames from "classnames";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import Icon from "../Icon/page";
 // import SvgIcon from "assets/images/icon.svg";
 
@@ -41,30 +40,29 @@ export default function Header({
   title,
   rightItems,
   leftItem,
-  center,
   className,
 }: HeaderProps) {
-  const [width, setWidth] = useState<number>(0);
+  // const [width, setWidth] = useState<number>(0);
 
-  useEffect(() => {
-    const width = typeof window !== "undefined" ? window.innerWidth : 0;
-    setWidth(width);
+  // useEffect(() => {
+  //   const width = typeof window !== "undefined" ? window.innerWidth : 0;
+  //   setWidth(width);
 
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-    };
+  //   const handleResize = () => {
+  //     setWidth(window.innerWidth);
+  //   };
 
-    // 초기 width 값 설정
-    handleResize();
+  //   // 초기 width 값 설정
+  //   handleResize();
 
-    // 윈도우 리사이즈 이벤트 리스너 등록
-    window.addEventListener("resize", handleResize);
+  //   // 윈도우 리사이즈 이벤트 리스너 등록
+  //   window.addEventListener("resize", handleResize);
 
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   // 컴포넌트 언마운트 시 이벤트 리스너 제거
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   return (
     <nav
