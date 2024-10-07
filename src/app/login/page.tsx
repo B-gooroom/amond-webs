@@ -25,17 +25,13 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center items-center h-[100vh]">
+    <>
       {!userData && (
         <div>
-          <div className="h-[100px]">로그인 페이지</div>
+          <p className="h-[100px]">로그인 페이지</p>
           <SignIn />
         </div>
       )}
-      {/* <div>
-        <button onClick={() => router.push("/auth/signup")}>회원가입</button>
-        <button onClick={() => router.push("/auth/signin")}>로그인</button>
-      </div> */}
-    </div>
+    </>
   );
 }

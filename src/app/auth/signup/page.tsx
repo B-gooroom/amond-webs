@@ -51,23 +51,28 @@ export default function SignUp() {
     <div className="flex flex-col gap-12 justify-center h-[100vh] px-16">
       <h1>회원가입</h1>
       <form onSubmit={handleSignUp} className="flex gap-8">
-        {/* <label>Email:</label> */}
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일"
-          // required
-        />
-        {/* <label>Password:</label> */}
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="비밀번호"
-          // required
-        />
-        <button type="submit">Sign Up</button>
+        <div className="flex flex-col gap-8">
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일"
+            // required
+          />
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호"
+            // required
+          />
+        </div>
+        <button
+          type="submit"
+          className="border bg-ad-green-dark text-ad-white px-16 rounded-2xl"
+        >
+          회원가입
+        </button>
       </form>
       {message && <p>{message}</p>}
     </div>

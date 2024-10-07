@@ -23,6 +23,10 @@ const config: Config = {
         },
         "ad-red": "#FF5247",
         "ad-white": "#FFFFFF",
+        "ad-green": {
+          light: "#00E676",
+          dark: "#00A856",
+        },
       },
       fontSize: {
         h1: [

@@ -26,24 +26,31 @@ export default function SignIn() {
   };
 
   return (
-    <div className="h-[100vh] flex flex-col justify-center px-16">
+    <div className="flex flex-col justify-center px-16">
       <h1>로그인</h1>
       <form onSubmit={handleLogin} className="flex gap-8">
-        {/* <label>Email:</label> */}
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          // required
-        />
-        {/* <label>Password:</label> */}
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          // required
-        />
-        <button type="submit">Login</button>
+        <div className="flex flex-col gap-8">
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일"
+            // required
+          />
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호"
+            // required
+          />
+        </div>
+        <button
+          type="submit"
+          className="border bg-ad-green-light px-16 rounded-2xl"
+        >
+          로그인
+        </button>
       </form>
       {message && <p>{message}</p>}
 
