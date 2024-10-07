@@ -6,6 +6,7 @@ import Icon from "@/components/Icon/page";
 import Input from "@/components/Input/page";
 import { Spacer } from "@/components/Spacer/page";
 import { getAgeGroup } from "@/utils/ageConverter";
+import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,6 +24,13 @@ export default function Edit() {
     const age = searchParams.get("age") || "";
     const region = searchParams.get("region") || "";
     const introduce = searchParams.get("introduce") || "";
+
+    const getUserData = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      console.log("data", data);
+    };
+
+    getUserData();
 
     setUserNickname(nickname);
     setUserAgeGroup(getAgeGroup(parseInt(age)));
@@ -49,6 +57,16 @@ export default function Edit() {
 
   const handleRegionSelect = (selectedRegion: string) => {
     setUserRegion(selectedRegion);
+  };
+
+  const handleLogOut = async () => {
+    console.log("handleLogOut");
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.log("Error logging out:", error.message);
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -142,6 +160,16 @@ export default function Edit() {
           onSelect={handleAgeSelect}
         />
       </section>
+      <div>
+        로그아웃
+        <button
+          onClick={() => {
+            handleLogOut();
+          }}
+        >
+          click
+        </button>
+      </div>
     </div>
   );
 }

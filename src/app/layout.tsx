@@ -44,6 +44,9 @@ export default function RootLayout({
   useEffect(() => {
     // 특정 경로에 따라 TabBar 숨기기
     if (
+      currentPath === "/" ||
+      currentPath === "/auth/signup" ||
+      currentPath === "/auth/signin" ||
       currentPath === "/post" ||
       currentPath === "/notification" ||
       currentPath === "/profile/edit" ||

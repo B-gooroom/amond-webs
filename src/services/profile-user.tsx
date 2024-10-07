@@ -1,21 +1,30 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-// const { data: { user } } = await supabase.auth.getUser();
+"use client";
+import { supabase } from "@/utils/supabase/client";
 
-export async function profileUser(supabase: SupabaseClient) {
-  const phonenum = "010-1234-5678";
+export async function ProfileUser() {
+  // 현재 로그인한 사용자의 정보를 가져옵니다.
+
+  const { data, error } = await supabase.auth.getUser();
+  console.log("data", data);
+
+  if (error) {
+    console.error("Error fetching user:", error.message);
+    return null;
+  }
+
+  const userEmail = data.user.email;
 
   const { data: userData, error: userError } = await supabase
     .from("users")
     .select("*")
-    .in("phonenum", [phonenum])
+    .eq("email", userEmail)
+    .in("used", [true])
     .single();
 
   if (userError) {
     console.error("Error fetching user:", userError.message);
-    return [];
+    return null;
   }
-
-  // console.log("userData", userData);
 
   return userData;
 }
