@@ -1,6 +1,7 @@
 "use client";
 import Header from "@/components/Header/page";
 import Icon from "@/components/Icon/page";
+import { supabase } from "@/utils/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -22,6 +23,16 @@ export default function Setting() {
 
   const handleBackClick = () => {
     router.back(); // history의 이전 페이지로 이동
+  };
+
+  const handleLogOut = async () => {
+    console.log("handleLogOut");
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.log("Error logging out:", error.message);
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -47,6 +58,15 @@ export default function Setting() {
         })}
       </div>
       <p className="text-body2 text-ad-gray-500 px-16 pt-10">현재 버전 0.0.1</p>
+      <div className="pt-10 px-16">
+        <button
+          onClick={() => {
+            handleLogOut();
+          }}
+        >
+          로그아웃
+        </button>
+      </div>
     </div>
   );
 }

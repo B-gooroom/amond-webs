@@ -9,7 +9,6 @@ import { Spacer } from "@/components/Spacer/page";
 import { ProfileUser } from "@/services/profile-user";
 // import ageConverter from "@/utils/ageConverter";
 import { getAgeGroup } from "@/utils/ageConverter";
-import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -56,16 +55,6 @@ export default function Edit() {
   const handleRegionSelect = (selectedRegion: string) => {
     // setUserRegion(selectedRegion);
     console.log("selectedRegion", selectedRegion);
-  };
-
-  const handleLogOut = async () => {
-    console.log("handleLogOut");
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log("Error logging out:", error.message);
-    } else {
-      router.push("/");
-    }
   };
 
   return (
@@ -166,16 +155,6 @@ export default function Edit() {
           </section>
         </>
       )}
-      <div>
-        로그아웃
-        <button
-          onClick={() => {
-            handleLogOut();
-          }}
-        >
-          click
-        </button>
-      </div>
     </div>
   );
 }
