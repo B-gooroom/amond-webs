@@ -45,9 +45,10 @@ export default async function QnA() {
         <Spacer className="h-32" />
         <div className="px-16">
           <Banner
-            path="/"
+            path="/info"
             alt="아몬드 소개 배너"
-            imageUrl="https://xtlpqspaohusobjcvsas.supabase.co/storage/v1/object/sign/amond-img/banner/info.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhbW9uZC1pbWcvYmFubmVyL2luZm8uanBnIiwiaWF0IjoxNzI3OTY3MTk4LCJleHAiOjE3NTk1MDMxOTh9.c8p9hGaZMJej4zUMxlbUIMi4H6B1jrA1goQ21pHcdgA&t=2024-10-03T14%3A53%3A18.287Z"
+            imageUrl="/images/HadaInfoBanner.png"
+            // imageUrl="https://xtlpqspaohusobjcvsas.supabase.co/storage/v1/object/sign/amond-img/banner/info.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhbW9uZC1pbWcvYmFubmVyL2luZm8uanBnIiwiaWF0IjoxNzI3OTY3MTk4LCJleHAiOjE3NTk1MDMxOTh9.c8p9hGaZMJej4zUMxlbUIMi4H6B1jrA1goQ21pHcdgA&t=2024-10-03T14%3A53%3A18.287Z"
           />
         </div>
         <Spacer className="h-32" />

@@ -50,7 +50,8 @@ export default function RootLayout({
       currentPath === "/post" ||
       currentPath === "/notification" ||
       currentPath === "/profile/edit" ||
-      currentPath === "/setting"
+      currentPath === "/setting" ||
+      currentPath === "/info"
     ) {
       setHideTabBar(true);
     } else {
@@ -61,7 +62,8 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body style={hideTabBar ? { height: "100vh" } : {}}>
+      {/* <body style={hideTabBar ? { height: "100vh" } : {}}> */}
+      <body>
         {children}
         <div className="pb-[99px]">
           {!hideTabBar && isNative === false && <TabBar />}

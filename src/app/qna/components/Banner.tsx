@@ -18,6 +18,7 @@ export default function Banner({ imageUrl, path, alt }: BannerProps) {
           width={343}
           height={120}
           layout="responsive"
+          quality={100}
         />
       </div>
     </Link>
