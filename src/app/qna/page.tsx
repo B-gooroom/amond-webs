@@ -9,6 +9,7 @@ import PostButton from "@/components/PostButton/page";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { popularQna } from "../../services/popular-qna";
+import { Footer } from "./components/Footer";
 import Popular from "./components/Popular";
 
 const QNA_LIST = 5;
@@ -21,7 +22,7 @@ export default async function QnA() {
 
   return (
     <>
-      <div className="w-full h-full">
+      <div className="w-full h-full pb-20">
         <Header title="질문하다" rightItems={["search", "notification"]} />
         <section className="px-16 pt-16 flex-col flex gap-16">
           <p className="text-subtitle1">🙋🏻 오늘의 질문</p>
@@ -70,6 +71,7 @@ export default async function QnA() {
       <PostButton>
         <Link href="/post">+ 글쓰기</Link>
       </PostButton>
+      <Footer />
     </>
   );
 }

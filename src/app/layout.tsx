@@ -65,7 +65,7 @@ export default function RootLayout({
       {/* <body style={hideTabBar ? { height: "100vh" } : {}}> */}
       <body>
         {children}
-        <div className="pb-[99px]">
+        <div className="pb-[79px]">
           {!hideTabBar && isNative === false && <TabBar />}
         </div>
       </body>

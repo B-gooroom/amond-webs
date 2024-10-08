@@ -20,6 +20,7 @@ const config: Config = {
           800: "#424242",
           500: "#9E9E9E",
           100: "#F5F5F5",
+          50: "#FAFAFA",
         },
         "ad-red": "#FF5247",
         "ad-white": "#FFFFFF",
