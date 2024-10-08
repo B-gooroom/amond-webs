@@ -7,7 +7,6 @@ import Icon from "@/components/Icon/page";
 import Input from "@/components/Input/page";
 import { Spacer } from "@/components/Spacer/page";
 import { ProfileUser } from "@/services/profile-user";
-// import ageConverter from "@/utils/ageConverter";
 import { getAgeGroup } from "@/utils/ageConverter";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

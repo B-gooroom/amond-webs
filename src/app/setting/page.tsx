@@ -42,17 +42,16 @@ export default function Setting() {
       </div>
       <div className="px-16 pt-16">
         {settingItems.map((item, index) => {
-          console.log(item);
           const { title, path } = item;
           return (
             <Link key={index} href={path}>
-              <p className="py-10 border-b text-body2 text-ad-black">
+              <div className="py-10 border-b text-body2 text-ad-black">
                 {title}
                 <Icon
                   icon="IconRightArrow"
                   className="fill-ad-gray-500 float-right"
                 />
-              </p>
+              </div>
             </Link>
           );
         })}
