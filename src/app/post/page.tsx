@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/\bButton/page";
+import Button from "@/components/Button/page";
 import Header from "@/components/Header/page";
 import Icon from "@/components/Icon/page";
 import Input from "@/components/Input/page";
