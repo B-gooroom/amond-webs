@@ -19,10 +19,8 @@ export default function Info() {
       </div>
       <div className="flex flex-col items-center">
         <Spacer className="h-[24px]" />
-        <p className="text-subtitle2 text-ad-black">
-          모두의 카페 커뮤니티 서비스
-        </p>
-        <p className="text-h1 text-ad-black">아몬드</p>
+        <p className="text-subtitle">모두의 카페 커뮤니티 서비스</p>
+        <p className="text-h1">아몬드</p>
         <Spacer className="h-[60px]" />
         <Image
           src="/images/HadaInfoTitle.png"

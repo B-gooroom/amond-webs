@@ -45,7 +45,7 @@ export default function Setting() {
           const { title, path } = item;
           return (
             <Link key={index} href={path}>
-              <div className="py-10 border-b text-body2 text-ad-black">
+              <div className="py-10 border-b text-body2">
                 {title}
                 <Icon
                   icon="IconRightArrow"
