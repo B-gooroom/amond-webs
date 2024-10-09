@@ -5,7 +5,7 @@ export async function ProfileUser() {
   // 현재 로그인한 사용자의 정보를 가져옵니다.
 
   const { data, error } = await supabase.auth.getUser();
-  console.log("data", data);
+  // console.log("data", data);
 
   if (error) {
     console.error("Error fetching user:", error.message);

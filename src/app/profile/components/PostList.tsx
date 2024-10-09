@@ -31,8 +31,6 @@ export default function PostList({ selectedTab }: PostListProps) {
           {postQna.map((post, index) => {
             const { title, content, qnaCategory, qnaComment, qnaView } = post;
 
-            console.log("post", post);
-
             return (
               <List
                 key={index}

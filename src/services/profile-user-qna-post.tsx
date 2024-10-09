@@ -39,8 +39,6 @@ export async function ProfileUserQnaPost() {
     .select("*")
     .eq("category_id", categoryId);
 
-  console.log("categoryName", categoryData);
-
   if (categoryDataError) {
     console.error(
       "Error fetching related data from another_table:",
