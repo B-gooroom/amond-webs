@@ -6,7 +6,7 @@ export type Note = {
 };
 
 export type QnA = {
-  id: number;
+  qna_id: number;
   title: string;
   content: string;
   category_id: number;

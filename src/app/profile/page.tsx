@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { User } from "../types/type";
+import PostList from "./components/PostList";
 
 export default function Profile() {
   const [userData, setUserData] = useState<User | null>(null);
@@ -88,6 +89,7 @@ export default function Profile() {
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
+      {userData ? <PostList /> : <div>고객 정보가 없습니다</div>}
       <PostButton>
         <Link href="/post">+ 글쓰기</Link>
       </PostButton>
