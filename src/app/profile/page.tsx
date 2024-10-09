@@ -3,6 +3,7 @@ import Header from "@/components/Header/page";
 import Label from "@/components/Label/page";
 import PostButton from "@/components/PostButton/page";
 import { Spacer } from "@/components/Spacer/page";
+import Tab from "@/components/Tab/page";
 import { ProfileUser } from "@/services/profile-user";
 import { getAgeGroup } from "@/utils/ageConverter";
 import Image from "next/image";
@@ -12,6 +13,7 @@ import { User } from "../types/type";
 
 export default function Profile() {
   const [userData, setUserData] = useState<User | null>(null);
+  const [selectedTab, setSelectedTab] = useState(0);
 
   useEffect(() => {
     const userInfo = async () => {
@@ -81,6 +83,11 @@ export default function Profile() {
       ) : (
         <div>Loading...</div>
       )}
+      <Tab
+        tabs={["전체", "질문하다", "소통하다"]}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+      />
       <PostButton>
         <Link href="/post">+ 글쓰기</Link>
       </PostButton>
