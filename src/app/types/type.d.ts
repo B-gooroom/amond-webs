@@ -5,6 +5,29 @@ export type Note = {
   views?: number;
 };
 
+export type QnACategory = {
+  category_base: string;
+  category_class: string;
+  category_id: number;
+  category_name: string;
+};
+
+export type QnAComment = {
+  qna_id: number;
+  content: string;
+  comment_id: number;
+  user_id: string;
+  parent_comment_id: number;
+  created_at: Date;
+  updated_at: Date;
+  is_deleted: false;
+};
+
+export type QnAView = {
+  qna_id: number;
+  view_count: number;
+};
+
 export type QnA = {
   qna_id: number;
   title: string;
@@ -15,6 +38,9 @@ export type QnA = {
   updated_at: Date;
   is_deleted: boolean;
   is_popular: boolean;
+  qnaCategory: QnACategory[];
+  qnaComment: QnAComment[];
+  qnaView: QnAView[];
 };
 
 export type AuthByUser = {
