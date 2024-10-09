@@ -89,7 +89,11 @@ export default function Profile() {
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
-      {userData ? <PostList /> : <div>고객 정보가 없습니다</div>}
+      {userData ? (
+        <PostList selectedTab={selectedTab} />
+      ) : (
+        <div>고객 정보가 없습니다</div>
+      )}
       <PostButton>
         <Link href="/post">+ 글쓰기</Link>
       </PostButton>
