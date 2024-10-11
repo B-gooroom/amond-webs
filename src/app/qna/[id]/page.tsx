@@ -8,7 +8,7 @@ import { QnaDetail } from "@/services/qna-detail";
 import { useParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { QnA } from "../../types/type";
-import Comment from "./components/Comment";
+import Comment from "../components/Comment";
 
 const QnaDetailPage = () => {
   const { id } = useParams();
