@@ -19,7 +19,7 @@ export default function Info() {
       </div>
       <div className="flex flex-col items-center">
         <Spacer className="h-[24px]" />
-        <p className="text-subtitle">모두의 카페 커뮤니티 서비스</p>
+        <p className="text-subtitle">나누며 성장하는 카페 플랫폼</p>
         <p className="text-h1">아몬드</p>
         <Spacer className="h-[60px]" />
         <Image
