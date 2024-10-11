@@ -28,6 +28,14 @@ export type QnAView = {
   view_count: number;
 };
 
+export type QnAImage = {
+  image_id: string;
+  qna_id: number;
+  image_url: string;
+  created_at: Date;
+  is_deleted: boolean;
+};
+
 export type QnA = {
   qna_id: number;
   title: string;
@@ -41,6 +49,7 @@ export type QnA = {
   qnaCategory: QnACategory[];
   qnaComment: QnAComment[];
   qnaView: QnAView[];
+  qnaImage: QnAImage;
 };
 
 export type AuthByUser = {

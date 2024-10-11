@@ -51,7 +51,8 @@ export default function RootLayout({
       currentPath === "/notification" ||
       currentPath === "/profile/edit" ||
       currentPath === "/setting" ||
-      currentPath === "/info"
+      currentPath === "/info" ||
+      currentPath === "/qna/list"
     ) {
       setHideTabBar(true);
     } else {
