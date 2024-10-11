@@ -1,5 +1,8 @@
+import Link from "next/link";
+
 interface PopularProps {
   index: number;
+  id: number;
   title: string;
   comments: number;
   views: number;
@@ -7,12 +10,16 @@ interface PopularProps {
 
 export default function Popular({
   index,
+  id,
   title,
   comments,
   views,
 }: PopularProps) {
   return (
-    <div className="flex gap-14 border px-16 py-24 rounded-2xl">
+    <Link
+      href={`/qna/${id}`}
+      className="flex gap-14 border px-16 py-24 rounded-2xl"
+    >
       <div className="text-subtitle1">{index}</div>
       <div className="flex-col gap-8 flex">
         <p className="text-body2">{title}</p>
@@ -20,6 +27,6 @@ export default function Popular({
           답변 {comments} ･ 조회수 {views}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
