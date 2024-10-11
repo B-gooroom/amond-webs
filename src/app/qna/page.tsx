@@ -26,8 +26,8 @@ export default async function QnA() {
         <Header title="질문하다" rightItems={["search", "notification"]} />
         <section className="px-16 pt-16 flex-col flex gap-16">
           <p className="text-subtitle1">🙋🏻 오늘의 질문</p>
-          {popularQnas.map((note, index) => {
-            const { title, qnaComment = [], qnaView = [] } = note;
+          {popularQnas.map((qna, index) => {
+            const { title, qnaComment = [], qnaView = [], qna_id } = qna;
 
             const commentsCount = qnaComment.length;
             const viewCount = qnaView.length > 0 ? qnaView[0].view_count : 0;
@@ -35,6 +35,7 @@ export default async function QnA() {
             return (
               <Popular
                 key={index}
+                id={qna_id}
                 index={index + 1}
                 title={title as string}
                 comments={(commentsCount as number) || 0}
