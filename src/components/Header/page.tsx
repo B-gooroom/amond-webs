@@ -2,6 +2,7 @@
 
 import classnames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Icon from "../Icon/page";
 
 interface HeaderProps {
@@ -41,6 +42,7 @@ export default function Header({
   leftItem,
   className,
 }: HeaderProps) {
+  const router = useRouter();
   // const [width, setWidth] = useState<number>(0);
 
   // useEffect(() => {
@@ -63,6 +65,13 @@ export default function Header({
   //   };
   // }, []);
 
+  const handleLeftItem = () => {
+    console.log("leftItem", leftItem);
+    if (leftItem === "IconLeftArrow") {
+      router.back();
+    }
+  };
+
   return (
     <nav
       className={classnames(
@@ -73,7 +82,7 @@ export default function Header({
       )}
     >
       {leftItem && (
-        <div className="cursor-pointer">
+        <div onClick={handleLeftItem} className="cursor-pointer">
           <Icon icon={leftItem} size={24} className="fill-ad-black" />
         </div>
       )}

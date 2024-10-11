@@ -9,11 +9,9 @@ import { Spacer } from "@/components/Spacer/page";
 import { ProfileUser } from "@/services/profile-user";
 import { getAgeGroup } from "@/utils/ageConverter";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Edit() {
-  const router = useRouter();
   const [userData, setUserData] = useState<User | null>(null);
 
   useEffect(() => {
@@ -31,10 +29,6 @@ export default function Edit() {
   }
 
   console.log("userData", userData);
-
-  const handleBackClick = () => {
-    router.back();
-  };
 
   const addPhoto = () => {
     console.log("addPhoto");
@@ -58,7 +52,7 @@ export default function Edit() {
 
   return (
     <div>
-      <div onClick={handleBackClick} className="relative">
+      <div className="relative">
         <Header title="프로필 편집" leftItem={"IconLeftArrow"} />
         <span className="absolute text-body2 top-16 right-16">완료</span>
       </div>

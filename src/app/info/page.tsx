@@ -3,20 +3,11 @@ import Header from "@/components/Header/page";
 import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 export default function Info() {
-  const router = useRouter();
-
-  const handleBackClick = () => {
-    router.back(); // history의 이전 페이지로 이동
-  };
-
   return (
     <div className="-mb-[99px]">
-      <div onClick={handleBackClick}>
-        <Header title="" leftItem="IconLeftArrow" />
-      </div>
+      <Header title="" leftItem="IconLeftArrow" />
       <div className="flex flex-col items-center">
         <Spacer className="h-[24px]" />
         <p className="text-subtitle">나누며 성장하는 카페 플랫폼</p>

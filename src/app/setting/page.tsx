@@ -21,10 +21,6 @@ const settingItems = [
 export default function Setting() {
   const router = useRouter();
 
-  const handleBackClick = () => {
-    router.back(); // history의 이전 페이지로 이동
-  };
-
   const handleLogOut = async () => {
     console.log("handleLogOut");
     const { error } = await supabase.auth.signOut();
@@ -37,9 +33,7 @@ export default function Setting() {
 
   return (
     <div>
-      <div onClick={handleBackClick}>
-        <Header title="설정" leftItem="IconLeftArrow" />
-      </div>
+      <Header title="설정" leftItem="IconLeftArrow" />
       <div className="px-16 pt-16">
         {settingItems.map((item, index) => {
           const { title, path } = item;
