@@ -39,7 +39,7 @@ export default function PostList({ selectedTab }: PostListProps) {
                 description={content}
                 comments={qnaComment.length}
                 views={qnaView[0].view_count}
-                imageUrl="/images/1.jpg"
+                images="/images/1.jpg"
               />
             );
           })}
