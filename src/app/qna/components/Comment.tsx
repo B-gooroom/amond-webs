@@ -3,63 +3,58 @@ import { QnAChildComment } from "@/app/types/type";
 import Icon from "@/components/Icon/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
 import { QnaComment } from "@/services/qna-comment";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface CommentProps {
-  qna_id: number;
-  user_id: string;
-  created_at: Date;
-  content: string;
-  parent_comment_id: number;
-}
-
-export default function Comment({
-  qna_id,
-  user_id,
-  created_at,
-  content,
-  parent_comment_id,
-}: CommentProps) {
+export default function Comment() {
+  const { id } = useParams();
   const [childComment, setChildComment] = useState<QnAChildComment[] | null>(
     null
   );
 
   useEffect(() => {
     const fetchChildComment = async () => {
-      const childData = await QnaComment({ user_id, parent_comment_id });
+      const childData = await QnaComment({ id: id as string });
+      if (!childData) return;
       setChildComment(childData);
     };
     fetchChildComment();
-
-    // const postDetail = async () => {
-    //   const detailData = await QnaDetail({ id: qna_id });
-    //   if (detailData) {
-    //     setChildComment(detailData);
-    //   }
-    // };
-    // postDetail();
   }, []);
 
-  // console.log("childComment", childComment);
+  if (!childComment) return <p>Loading...</p>;
 
   return (
     <>
-      <UserInfoDetail
-        userNickname={childComment ? "fkfk" : user_id}
-        created_at={created_at}
-      />
-      <p className="text-subtitle2">{content}</p>
-      <div className="pb-[16px] border-b flex gap-16">
-        <div>
-          <Icon icon="IconFavorite" size={24} />
-          <span className="text-caption1">{23}</span>
-        </div>
-        <div>
-          <Icon icon="IconComment" size={24} />
-          <span className="text-caption1">
-            {childComment && childComment.length}
-          </span>
-        </div>
+      <div className="flex flex-col gap-16">
+        <p className="text-subtitle1">
+          <span className="text-ad-brown-800">A. </span>
+          {childComment.length}개의 답변
+        </p>
+        {childComment.map((comment, index) => {
+          const { content, created_at, qnaUser, qnaCommentData } = comment;
+
+          return (
+            <div key={index} className="flex flex-col gap-16">
+              <UserInfoDetail
+                userNickname={qnaUser[0].nickname}
+                created_at={created_at}
+              />
+              <p className="text-subtitle2">{content}</p>
+              <div className="pb-[16px] border-b flex gap-16">
+                <div>
+                  <Icon icon="IconFavorite" size={24} />
+                  <span className="text-caption1">{23}</span>
+                </div>
+                <div>
+                  <Icon icon="IconComment" size={24} />
+                  <span className="text-caption1">
+                    {qnaCommentData.length > 0 && qnaCommentData.length}
+                  </span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </>
   );

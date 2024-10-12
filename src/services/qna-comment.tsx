@@ -1,16 +1,26 @@
 import { supabase } from "@/utils/supabase/client";
 
 interface QnaCommentProps {
-  user_id: string;
-  parent_comment_id: number;
+  id: string;
 }
 
-export async function QnaComment({
-  user_id,
-  parent_comment_id,
-}: QnaCommentProps) {
+export async function QnaComment({ id }: QnaCommentProps) {
+  // 1. qna_id를 기반으로 QnA 데이터를 가져옴
+  const { data: qnaCommentData, error: qnaCommentError } = await supabase
+    .from("qna_comments")
+    .select("*")
+    .eq("qna_id", id);
+
+  if (qnaCommentError) {
+    console.error("Error fetching qna detail:", qnaCommentError.message);
+    return null;
+  }
+
+  // 2. qna_id로 user 데이터를 가져옴
+  const userId = qnaCommentData.map((qna) => qna.user_id);
+
   const { data: qnaCommentUserData, error: qnaCommentUserError } =
-    await supabase.from("users").select("*").eq("user_id", user_id); // qna_id를 기반으로 조회
+    await supabase.from("users").select("*").eq("user_id", userId); // qna_id를 기반으로 조회
 
   if (qnaCommentUserError) {
     console.error(
@@ -18,16 +28,6 @@ export async function QnaComment({
       qnaCommentUserError.message
     );
     return null;
-  }
-
-  const { data: qnaCommentData, error: qnaCommentError } = await supabase
-    .from("qna_comments")
-    .select("*")
-    .eq("parent_comment_id", parent_comment_id);
-
-  if (qnaCommentError) {
-    console.error("Error fetching qna comment:", qnaCommentError.message);
-    return qnaCommentUserData;
   }
 
   const result = qnaCommentData.map((comment) => ({
@@ -41,5 +41,4 @@ export async function QnaComment({
   }));
 
   return result;
-  // return qnaCommentData;
 }

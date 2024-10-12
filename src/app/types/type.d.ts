@@ -49,22 +49,21 @@ export type QnA = {
   qnaCategory: QnACategory[];
   qnaComment: QnAComment[];
   qnaView: QnAView[];
-  qnaImage: QnAImage;
+  qnaImage: QnAImage[];
   qnaUser: User[];
 };
 
 export type QnAChildComment = {
-  qna_id: number;
-  content: string;
   comment_id: number;
-  user_id: string;
-  nickname: string;
-  parent_comment_id: number;
+  content: string;
   created_at: Date;
-  updated_at: Date;
-  is_deleted: false;
-  qnaUser: User[];
+  is_deleted: boolean;
+  parent_comment_id: string;
   qnaCommentData: QnAComment[];
+  qnaUser: User[];
+  qna_id: number;
+  updated_at: Date;
+  user_id: string;
 };
 
 export type AuthByUser = {
