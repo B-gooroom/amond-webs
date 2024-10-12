@@ -5,6 +5,7 @@ import Label from "@/components/Label/page";
 import List from "@/components/List/page";
 import { Spacer } from "@/components/Spacer/page";
 import { QnaList } from "@/services/qna-list";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const CategoryLabels = [
@@ -53,22 +54,31 @@ export default function QnAList() {
       <Spacer className="h-24" />
       <div className="px-16">
         {listData?.map((list, index) => {
-          const { title, qnaCategory, content, qnaComment, qnaView, qnaImage } =
-            list;
+          const {
+            qna_id,
+            title,
+            qnaCategory,
+            content,
+            qnaComment,
+            qnaView,
+            qnaImage,
+          } = list;
 
           // TODO: imageUrl array인지 object인지 확인
-          const imageUrl = qnaImage.image_url || "";
-          console.log("qnaImage", qnaImage);
+          const imageUrl = qnaImage[0]?.image_url || "";
+          // console.log("qnaImage", qnaImage);
           return (
-            <List
-              key={index}
-              title={title}
-              label={qnaCategory[0].category_name}
-              description={content}
-              comments={qnaComment.length}
-              views={qnaView.length}
-              images={imageUrl ? imageUrl : ""}
-            />
+            <Link href={`/qna/${qna_id}`} key={index}>
+              <List
+                key={index}
+                title={title}
+                label={qnaCategory[0].category_name}
+                description={content}
+                comments={qnaComment.length}
+                views={qnaView.length}
+                images={imageUrl ? imageUrl : ""}
+              />
+            </Link>
           );
         })}
       </div>
