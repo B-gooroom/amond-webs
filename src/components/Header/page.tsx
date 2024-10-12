@@ -66,7 +66,6 @@ export default function Header({
   // }, []);
 
   const handleLeftItem = () => {
-    console.log("leftItem", leftItem);
     if (leftItem === "IconLeftArrow") {
       router.back();
     }

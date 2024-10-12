@@ -3,7 +3,7 @@
 import { supabase } from "@/utils/supabase/client";
 
 interface QnaDetailProps {
-  id: number;
+  id: string;
 }
 
 export async function QnaDetail({ id }: QnaDetailProps) {

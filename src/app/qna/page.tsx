@@ -18,8 +18,6 @@ export default async function QnA() {
   const supabase = createClient();
   const popularQnas = await popularQna(supabase);
 
-  // console.log("popularQnas", popularQnas);
-
   return (
     <>
       <div className="w-full h-full pb-20">

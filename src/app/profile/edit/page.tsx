@@ -28,7 +28,7 @@ export default function Edit() {
     return <div>Loading...</div>;
   }
 
-  console.log("userData", userData);
+  // console.log("userData", userData);
 
   const addPhoto = () => {
     console.log("addPhoto");
