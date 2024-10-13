@@ -5,6 +5,7 @@ import Header from "@/components/Header/page";
 import Icon from "@/components/Icon/page";
 import Input from "@/components/Input/page";
 import { Spacer } from "@/components/Spacer/page";
+import { PostQna } from "@/services/post-qna";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SelectBoard from "./components/SelectBoard";
@@ -13,7 +14,7 @@ import SelectCategory from "./components/SelectCategory";
 export default function Post() {
   const router = useRouter();
   const [board, setBoard] = useState<number>(0);
-  const [category, setCategory] = useState<number>(0);
+  const [category, setCategory] = useState<number>(1);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 
@@ -24,13 +25,13 @@ export default function Post() {
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     if (e.target.value.length > 20) return;
-    console.log("title changed", e.target.value);
+    // console.log("title changed", e.target.value);
     setTitle(e.target.value);
   };
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.stopPropagation();
-    console.log("title changed", e.target.value);
+    // console.log("content changed", e.target.value);
     setContent(e.target.value);
   };
 
@@ -39,6 +40,24 @@ export default function Post() {
       return true;
     }
     return false;
+  };
+
+  const handlePost = async () => {
+    // console.log("게시글확인 :", title, content, board, category);
+
+    /** 게시글 INSERT */
+    if (board === 0) {
+      const { postId, error } = await PostQna({ title, content, category });
+      if (error) {
+        console.error("Error:", error);
+        alert("게시글 작성에 실패했습니다.");
+      } else if (postId) {
+        router.push(`/qna/${postId}`);
+      }
+    }
+    if (board === 1) {
+      // TODO: 사업자 인증 확인하는 로직 추가
+    }
   };
 
   return (
@@ -93,11 +112,14 @@ export default function Post() {
           <span className="text-caption1 text-ad-gray-500">0 /10</span>
         </div>
       </section>
-      <Button
-        label="작성 완료"
-        type={isDisabled() ? "primary" : "disabled"}
-        disabled={!isDisabled()}
-      />
+      <div className="fixed bottom-0 w-full pb-[20px]">
+        <Button
+          label="작성 완료"
+          type={isDisabled() ? "primary" : "disabled"}
+          disabled={!isDisabled()}
+          onClick={handlePost}
+        />
+      </div>
     </>
   );
 }
