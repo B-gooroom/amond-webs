@@ -53,6 +53,20 @@ export type QnA = {
   qnaUser: User[];
 };
 
+export type QnAPopular = {
+  qna_id: number;
+  title: string;
+  content: string;
+  category_id: number;
+  user_id: string;
+  created_at: Date;
+  updated_at: Date;
+  is_deleted: boolean;
+  is_popular: boolean;
+  qnaComment: QnAComment[];
+  qnaView: QnAView[];
+};
+
 export type QnAChildComment = {
   comment_id: number;
   content: string;

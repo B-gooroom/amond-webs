@@ -5,7 +5,8 @@ import { supabase } from "@/utils/supabase/client";
 export async function QnaList() {
   const { data: qnaListData, error: qnaListError } = await supabase
     .from("qna")
-    .select("*");
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (qnaListError) {
     console.error("Error fetching qna:", qnaListError.message);

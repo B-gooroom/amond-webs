@@ -1,22 +1,44 @@
-// "use client";
+"use client";
 
+import type { QnA, QnAPopular } from "@/app/types/type";
 import Header from "@/components/Header/page";
 import List from "@/components/List/page";
-import { Spacer } from "@/components/Spacer/page";
-import Banner from "./components/Banner";
-
 import PostButton from "@/components/PostButton/page";
-import { createClient } from "@/utils/supabase/server";
+import { Spacer } from "@/components/Spacer/page";
+import { QnaList } from "@/services/qna-list";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { popularQna } from "../../services/popular-qna";
+import Banner from "./components/Banner";
 import { Footer } from "./components/Footer";
 import Popular from "./components/Popular";
 
-const QNA_LIST = 5;
+export default function QnA() {
+  const [popularQnas, setPopularQnas] = useState<QnAPopular[] | null>(null);
+  const [latestQnas, setLatestQnas] = useState<QnA[] | null>(null);
 
-export default async function QnA() {
-  const supabase = createClient();
-  const popularQnas = await popularQna(supabase);
+  useEffect(() => {
+    const LatestQnaData = async () => {
+      const listData = await QnaList();
+
+      if (listData) {
+        setLatestQnas(listData);
+      }
+    };
+    const PopularQnaData = async () => {
+      const data = await popularQna();
+      if (data) {
+        setPopularQnas(data);
+      }
+    };
+
+    PopularQnaData();
+    LatestQnaData();
+  }, []);
+
+  if (!popularQnas || !latestQnas) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -59,17 +81,33 @@ export default async function QnA() {
               더 보기
             </Link>
           </div>
-          {Array.from({ length: QNA_LIST }).map((_, index) => (
-            <List
-              key={index}
-              title="사업자 등록증 신고할 때 궁금한 점"
-              label="자유"
-              description="이번에 배민이랑 인스타 광고 돌리는데 비용이 너무 많이 나와서 고민이네요 다른 분들은 어떻게 얼마나 나오시..."
-              comments={3}
-              views={900}
-              images="/images/1.jpg"
-            />
-          ))}
+          {latestQnas?.slice(0, 5).map((qna, index) => {
+            const {
+              qna_id,
+              title,
+              qnaCategory,
+              content,
+              qnaComment,
+              qnaView,
+              qnaImage,
+            } = qna;
+
+            // TODO: imageUrl array인지 object인지 확인
+            const imageUrl = qnaImage[0]?.image_url || "";
+
+            return (
+              <Link href={`/qna/${qna_id}`} key={index}>
+                <List
+                  title={title}
+                  label={qnaCategory[0]?.category_name}
+                  description={content}
+                  comments={qnaComment.length}
+                  views={qnaView[0] ? qnaView[0]?.view_count : 0}
+                  images={imageUrl ? imageUrl : ""}
+                />
+              </Link>
+            );
+          })}
         </section>
       </div>
       <PostButton>
