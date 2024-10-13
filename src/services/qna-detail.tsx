@@ -11,8 +11,7 @@ export async function QnaDetail({ id }: QnaDetailProps) {
   const { data: qnaDetailData, error: qnaDetailError } = await supabase
     .from("qna")
     .select("*")
-    // .eq("qna_id", id);
-    .eq("qna_id", 1);
+    .eq("qna_id", id);
 
   if (qnaDetailError) {
     console.error("Error fetching qna detail:", qnaDetailError.message);
