@@ -32,6 +32,10 @@ export default function QnAList() {
     qnaList();
   }, []);
 
+  if (!listData) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div>
       <Header title="질문하다" leftItem="IconLeftArrow" />
@@ -52,7 +56,7 @@ export default function QnAList() {
           );
         })}
       </div>
-      <Spacer className="h-24" />
+      <Spacer className="h-8" />
       <div className="px-16">
         {listData?.map((list, index) => {
           const {
@@ -67,16 +71,17 @@ export default function QnAList() {
 
           // TODO: imageUrl array인지 object인지 확인
           const imageUrl = qnaImage[0]?.image_url || "";
-          // console.log("qnaImage", qnaImage);
+
           return (
             <Link href={`/qna/${qna_id}`} key={index}>
+              <Spacer className="h-16" />
               <List
                 key={index}
                 title={title}
-                label={qnaCategory[0].category_name}
+                label={qnaCategory[0]?.category_name}
                 description={content}
                 comments={qnaComment.length}
-                views={qnaView.length}
+                views={qnaView[0] ? qnaView[0]?.view_count : 0}
                 images={imageUrl ? imageUrl : ""}
               />
             </Link>
