@@ -15,6 +15,7 @@ const CategoryLabels = [
   { value: 3, label: "레시피" },
   { value: 4, label: "창업" },
 ];
+// TODO : QnAList 필터링 작업
 
 export default function QnAList() {
   const [listData, setListData] = useState<QnA[] | null>(null);

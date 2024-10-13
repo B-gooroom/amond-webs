@@ -8,12 +8,12 @@ interface SelectBoardProps {
 }
 
 const CategoryLabels = [
-  { value: 0, label: "전체" },
+  // { value: 0, label: "전체" },
   { value: 1, label: "자유" },
   { value: 2, label: "레시피" },
-  { value: 3, label: "창업" },
-  { value: 4, label: "아몬드마켓" },
-  { value: 5, label: "매장/점포" },
+  { value: 3, label: "아몬드마켓" },
+  { value: 4, label: "매장/점포" },
+  { value: 5, label: "창업" },
 ];
 
 export default function SelectBoard({
