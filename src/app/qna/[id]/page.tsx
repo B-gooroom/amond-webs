@@ -5,6 +5,7 @@ import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
 import { QnaDetail } from "@/services/qna-detail";
+import { QnaViewIncrement } from "@/services/qna-view-increment";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,6 +22,8 @@ const QnaDetailPage = () => {
       if (detailData) {
         setQnaDetail(detailData);
       }
+
+      await QnaViewIncrement({ id: id as string });
     };
 
     postDetail();
