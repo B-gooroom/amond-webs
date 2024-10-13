@@ -28,7 +28,6 @@ export default function Login() {
     <>
       {!userData && (
         <div>
-          <p className="h-[100px]">로그인 페이지</p>
           <SignIn />
         </div>
       )}

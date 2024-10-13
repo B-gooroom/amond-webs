@@ -1,10 +1,12 @@
+import classNames from "classnames";
 import React from "react";
 
 interface ButtonProps {
   label: string;
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void; // 이벤트 타입 확장
   type?: "primary" | "normal" | "accent" | "disabled";
   disabled?: boolean;
+  className?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -12,9 +14,12 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   type = "normal",
   disabled = false,
+  className,
 }) => {
-  const baseStyles = "w-full px-16 py-14 h-[80px] fixed bottom-0 max-w-[500px]";
+  // 기본 스타일
+  const baseStyles = "w-full px-16 py-14 h-[80px] max-w-[498px]";
 
+  // 타입별 스타일
   const typeStyles = {
     primary: "bg-ad-brown-800 text-ad-white",
     normal: "bg-ad-white border text-ad-black",
@@ -24,12 +29,15 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={`${baseStyles}`}
-      onClick={disabled ? undefined : onClick}
+      className={classNames(baseStyles, className)} // baseStyles와 className 병합
+      onClick={!disabled ? onClick : undefined} // disabled 상태 처리
       disabled={disabled}
     >
       <div
-        className={`${typeStyles[type]} h-full flex justify-center items-center rounded-full text-button`}
+        className={classNames(
+          typeStyles[type], // 타입에 따른 스타일 적용
+          "h-full flex justify-center items-center rounded-full text-button"
+        )}
       >
         {label}
       </div>
