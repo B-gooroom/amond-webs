@@ -1,3 +1,4 @@
+"use client";
 import { Board } from "@/app/types/board";
 import Label from "@/components/Label/page";
 import ListWithLike from "@/components/ListWithLike/page";
