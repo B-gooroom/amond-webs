@@ -85,7 +85,7 @@ export default function Profile() {
         <div>Loading...</div>
       )}
       <Tab
-        tabs={["전체", "질문하다", "소통하다"]}
+        tabs={["질문하다", "소통하다"]}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
