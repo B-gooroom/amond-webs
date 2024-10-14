@@ -1,7 +1,7 @@
 "use client";
 import { supabase } from "@/utils/supabase/client";
 
-export async function popularQna() {
+export async function QnaPopular() {
   const { data: qnaData, error: qnaDataError } = await supabase
     .from("qna")
     .select("*")

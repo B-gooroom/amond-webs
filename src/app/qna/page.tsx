@@ -6,9 +6,9 @@ import List from "@/components/List/page";
 import PostButton from "@/components/PostButton/page";
 import { Spacer } from "@/components/Spacer/page";
 import { QnaList } from "@/services/qna-list";
+import { QnaPopular } from "@/services/qna-popular";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { popularQna } from "../../services/popular-qna";
 import Banner from "./components/Banner";
 import { Footer } from "./components/Footer";
 import Popular from "./components/Popular";
@@ -26,7 +26,7 @@ export default function QnA() {
       }
     };
     const PopularQnaData = async () => {
-      const data = await popularQna();
+      const data = await QnaPopular();
       if (data) {
         setPopularQnas(data);
       }
