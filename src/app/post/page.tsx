@@ -5,6 +5,7 @@ import Header from "@/components/Header/page";
 import Icon from "@/components/Icon/page";
 import Input from "@/components/Input/page";
 import { Spacer } from "@/components/Spacer/page";
+import { PostBoard } from "@/services/post-board";
 import { PostQna } from "@/services/post-qna";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -57,6 +58,13 @@ export default function Post() {
     }
     if (board === 1) {
       // TODO: 사업자 인증 확인하는 로직 추가
+      const { postId, error } = await PostBoard({ title, content, category });
+      if (error) {
+        console.error("Error:", error);
+        alert("게시글 작성에 실패했습니다.");
+      } else if (postId) {
+        router.push(`/board/${postId}`);
+      }
     }
   };
 
