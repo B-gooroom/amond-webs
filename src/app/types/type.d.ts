@@ -5,7 +5,7 @@ export type Note = {
   views?: number;
 };
 
-export type QnACategory = {
+export type Category = {
   category_base: string;
   category_class: string;
   category_id: number;
@@ -46,7 +46,7 @@ export type QnA = {
   updated_at: Date;
   is_deleted: boolean;
   is_popular: boolean;
-  qnaCategory: QnACategory[];
+  qnaCategory: Category[];
   qnaComment: QnAComment[];
   qnaView: QnAView[];
   qnaImage: QnAImage[];
