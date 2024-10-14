@@ -1,3 +1,4 @@
+import { BoardLike } from "@/app/types/board";
 import Image from "next/image";
 import Icon from "../Icon/page";
 import Label from "../Label/page";
@@ -10,7 +11,8 @@ interface ListProps {
   comments: number;
   views: number;
   images?: string;
-  likes: number;
+  likes: BoardLike[];
+  user_id: string;
 }
 
 export default function ListWithLike({
@@ -21,9 +23,8 @@ export default function ListWithLike({
   views,
   images,
   likes,
+  user_id,
 }: ListProps) {
-  // console.log("listwithlike", likes);
-
   return (
     <div className="flex-col flex gap-8">
       <Label size="small" color="gray">
@@ -37,7 +38,6 @@ export default function ListWithLike({
           </span>
           <Spacer className="h-8" />
           <span className="text-caption1 flex gap-2 text-ad-gray-500">
-            {/* 답변 {comments} ･ 조회수 {views} */}
             조회수 {views}
           </span>
         </div>
@@ -56,8 +56,14 @@ export default function ListWithLike({
           <Spacer className="h-8" />
           <div className="flex gap-8 justify-end">
             <div className="flex gap-[2px] items-center">
-              <Icon icon="IconFavoriteSmall" size={12} />
-              <span className="text-caption1 text-ad-gray-500">{likes}</span>
+              {likes[0].user_id === user_id ? (
+                <Icon icon="IconFavoriteActiveSmall" size={12} />
+              ) : (
+                <Icon icon="IconFavoriteSmall" size={12} />
+              )}
+              <span className="text-caption1 text-ad-gray-500">
+                {likes.length}
+              </span>
             </div>
             <div className="flex gap-[2px] items-center">
               <Icon icon="IconCommentSmall" size={12} />
