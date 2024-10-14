@@ -45,6 +45,8 @@ export default function Icon({ icon, size, className, ...props }: IconProps) {
   return (
     <ImportedIcon
       className={classnames("inline-block flex-shrink-0", className)}
+      width={size ?? defaultSize} // width 적용
+      height={size ?? defaultSize} // height 적용
       {...props}
     />
   );

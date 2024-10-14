@@ -36,11 +36,13 @@ export default function QnAList() {
     return <p>Loading...</p>;
   }
 
+  console.log("listData", listData);
+
   return (
     <div>
       <Header title="질문하다" leftItem="IconLeftArrow" />
       <Spacer className="h-16" />
-      <div className="flex gap-8 overflow-auto whitespace-nowrap h-[34px] items-center px-16">
+      <div className="flex gap-8 overflow-auto whitespace-nowrap h-[36px] items-center px-16">
         {CategoryLabels.map((item, index) => {
           const { value, label } = item;
 
@@ -48,7 +50,7 @@ export default function QnAList() {
             <div key={index} onClick={() => setSelectedCategory(value)}>
               <Label
                 key={index}
-                color={selectedCategory === value ? "brown" : "gray"}
+                color={selectedCategory === value ? "brown" : undefined}
               >
                 {label}
               </Label>
@@ -76,7 +78,6 @@ export default function QnAList() {
             <Link href={`/qna/${qna_id}`} key={index}>
               <Spacer className="h-16" />
               <List
-                key={index}
                 title={title}
                 label={qnaCategory[0]?.category_name}
                 description={content}
