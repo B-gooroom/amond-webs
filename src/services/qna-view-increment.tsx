@@ -1,18 +1,5 @@
 import { supabase } from "@/utils/supabase/client";
 
-// const incrementViewCount = async (qnaId: string) => {
-//   const { data, error } = await supabase
-//     .from("qna_views")
-//     .update({ view_count: supabase.raw("view_count + 1") }) // view_count 증가
-//     .eq("qna_id", qnaId); // 특정 QnA의 ID 기준
-
-//   if (error) {
-//     console.error("Error updating view count:", error.message);
-//   } else {
-//     console.log("View count incremented successfully:", data);
-//   }
-// };
-
 interface QnaViewIncrementProps {
   id: string;
 }
