@@ -23,7 +23,7 @@ export default function Board() {
   // console.log("isVerified", isVerified);
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[100vh]">
       <Header title="소통하다" rightItems={["search", "notification"]} />
       {!isVerified ? (
         <BoardList />

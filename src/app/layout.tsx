@@ -43,7 +43,8 @@ export default function RootLayout({
   // hideTabBar를 children의 pathname에 따라 설정
   useEffect(() => {
     // 특정 경로에 따라 TabBar 숨기기
-    const idRegex = /^\/qna\/\d+$/;
+    const qnaIdRegex = /^\/qna\/\d+$/;
+    const boardIdRegex = /^\/board\/\d+$/;
     if (
       currentPath === "/" ||
       currentPath === "/auth/signup" ||
@@ -54,7 +55,8 @@ export default function RootLayout({
       currentPath === "/setting" ||
       currentPath === "/info" ||
       currentPath === "/qna/list" ||
-      idRegex.test(currentPath)
+      qnaIdRegex.test(currentPath) ||
+      boardIdRegex.test(currentPath)
     ) {
       setHideTabBar(true);
     } else {

@@ -14,8 +14,6 @@ export async function QnaViewIncrement({ id }: QnaViewIncrementProps) {
     .eq("qna_id", qnaId)
     .single(); // 단일 레코드만 가져옴
 
-  console.log("qnaViewData", qnaViewData);
-
   if (qnaViewDataError) {
     // 2. 해당 레코드가 없으면 새로운 레코드를 삽입
     if (
