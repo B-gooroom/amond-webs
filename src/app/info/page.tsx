@@ -11,7 +11,13 @@ export default function Info() {
       <div className="flex flex-col items-center">
         <Spacer className="h-[24px]" />
         <p className="text-subtitle">나누며 성장하는 카페 플랫폼</p>
-        <p className="text-h1">아몬드</p>
+        <Spacer className="h-8" />
+        <Image
+          src="/images/AmondLogoText.png"
+          width={95}
+          height={30}
+          alt="아몬드"
+        />
         <Spacer className="h-[60px]" />
         <Image
           src="/images/HadaInfoTitle.png"
