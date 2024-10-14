@@ -44,4 +44,5 @@ export type Board = {
   boardView: BoardView[];
   boardImage: BoardImage[];
   boardLike: BoardLike[];
+  boardUser: User[];
 };

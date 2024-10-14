@@ -62,18 +62,20 @@ export default function BoardList() {
         <div className="px-16">
           {boardListData.map((list, index) => {
             const {
+              board_id,
               title,
               content,
               boardCategory,
               boardComment,
               boardView,
               boardLike,
+              user_id,
             } = list;
 
             // console.log("list", list);
 
             return (
-              <div key={index}>
+              <Link href={`/board/${board_id}`} key={index}>
                 <Spacer className="h-16" />
                 <ListWithLike
                   label={boardCategory[0]?.category_name}
@@ -81,9 +83,10 @@ export default function BoardList() {
                   description={content}
                   comments={boardComment.length}
                   views={boardView[0] ? boardView[0].view_count : 0}
-                  likes={boardLike.length}
+                  likes={boardLike}
+                  user_id={user_id}
                 />
-              </div>
+              </Link>
             );
           })}
         </div>
