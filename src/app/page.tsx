@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Login from "./login/page";
+import QnA from "./qna/page";
 
 export const metadata: Metadata = {
   title: "카페의 모든 것 | 아몬드",
@@ -26,7 +26,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="h-[100vh]">
-      <Login />
+      {/* <Login /> */}
+      <QnA />
     </div>
   );
 }

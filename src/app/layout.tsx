@@ -63,20 +63,22 @@ function ProtectedLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // 현재 경로 확인
-    const pathname = currentPath;
+    const pathname = window.location.pathname;
+    console.log("Current path:", pathname);
+    console.log("Current data:", data);
+
+    // 만약 현재 경로가 로그인 페이지인 경우 리다이렉트 방지
+    if (data && EXCLUDED_ROUTES.includes(pathname)) {
+      console.log("Current route is excluded:", pathname);
+    }
 
     // loading이 끝났고, 로그인된 사용자가 없으며 예외 경로가 아닌 경우 리다이렉트 실행
-    if (loading && !data && !EXCLUDED_ROUTES.includes(pathname)) {
+    if (!loading && !data && !EXCLUDED_ROUTES.includes(pathname)) {
       console.log("Redirecting to login");
       router.push("/login");
 
       // TODO: redirect 문제 해결하기
       // router.push(`/auth/signin?redirectTo=${encodeURIComponent(pathname)}`);
-    }
-
-    // 만약 현재 경로가 로그인 페이지인 경우 리다이렉트 방지
-    if (EXCLUDED_ROUTES.includes(pathname)) {
-      console.log("Current route is excluded:", pathname);
     }
   }, [currentPath, data, loading, router]);
 
