@@ -27,7 +27,7 @@ export default function Setting() {
     if (error) {
       console.log("Error logging out:", error.message);
     } else {
-      router.push("/");
+      router.push("/qna");
     }
   };
 

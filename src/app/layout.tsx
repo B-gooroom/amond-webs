@@ -1,18 +1,23 @@
 "use client";
 
 import TabBar from "@/components/TabBar/page";
-import { usePathname } from "next/navigation";
+import { EXCLUDED_ROUTES } from "@/constants/excludedRoutes";
+import {
+  HIDE_TABBAR_REGEX,
+  HIDE_TABBAR_ROUTES,
+} from "@/constants/tabBarRoutes";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import "./globals.css";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// RootLayout 컴포넌트 전체를 AuthProvider로 감싸는 방식
+function ProtectedLayout({ children }: { children: React.ReactNode }) {
+  const currentPath = usePathname();
   const [isNative, setIsNative] = useState<boolean | null>(null);
   const [hideTabBar, setHideTabBar] = useState<boolean>(false); // TabBar 숨기기 상태
-  const currentPath = usePathname();
+  const { data, loading } = useAuth(); // 이제 useAuth를 사용 가능
+  const router = useRouter();
 
   /** native 방식 */
   useEffect(() => {
@@ -40,38 +45,64 @@ export default function RootLayout({
     };
   }, []);
 
-  // hideTabBar를 children의 pathname에 따라 설정
   useEffect(() => {
-    // 특정 경로에 따라 TabBar 숨기기
-    const qnaIdRegex = /^\/qna\/\d+$/;
-    const boardIdRegex = /^\/board\/\d+$/;
-    if (
-      currentPath === "/" ||
-      currentPath === "/auth/signup" ||
-      currentPath === "/auth/signin" ||
-      currentPath === "/post" ||
-      currentPath === "/notification" ||
-      currentPath === "/profile/edit" ||
-      currentPath === "/setting" ||
-      currentPath === "/info" ||
-      currentPath === "/qna/list" ||
-      qnaIdRegex.test(currentPath) ||
-      boardIdRegex.test(currentPath)
-    ) {
+    // 경로가 HIDE_TABBAR_ROUTES에 포함되어 있는지 확인
+    const shouldHideTabBar = HIDE_TABBAR_ROUTES.includes(currentPath);
+
+    // 정규식으로 경로 패턴이 일치하는지 확인
+    const matchesRegex = HIDE_TABBAR_REGEX.some((regex) =>
+      regex.test(currentPath)
+    );
+
+    if (shouldHideTabBar || matchesRegex) {
       setHideTabBar(true);
     } else {
       setHideTabBar(false);
     }
-  }, [currentPath]); // children이 변경될 때마다 경로 확인
-  // console.log("isNative: ", isNative); // 디버깅용 로그
+  }, [currentPath]);
+
+  useEffect(() => {
+    // 현재 경로 확인
+    const pathname = currentPath;
+
+    // loading이 끝났고, 로그인된 사용자가 없으며 예외 경로가 아닌 경우 리다이렉트 실행
+    if (loading && !data && !EXCLUDED_ROUTES.includes(pathname)) {
+      console.log("Redirecting to login");
+      router.push("/login");
+
+      // TODO: redirect 문제 해결하기
+      // router.push(`/auth/signin?redirectTo=${encodeURIComponent(pathname)}`);
+    }
+
+    // 만약 현재 경로가 로그인 페이지인 경우 리다이렉트 방지
+    if (EXCLUDED_ROUTES.includes(pathname)) {
+      console.log("Current route is excluded:", pathname);
+    }
+  }, [currentPath, data, loading, router]);
 
   return (
+    <div>
+      {children}
+      <div className="pb-[79px]">
+        {!hideTabBar && isNative === false && <TabBar />}
+      </div>
+    </div>
+  );
+}
+
+// RootLayout 전체를 AuthProvider로 감쌈
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
     <html lang="en">
-      <body style={hideTabBar ? { height: "100vh" } : {}}>
-        {children}
-        <div className="pb-[79px]">
-          {!hideTabBar && isNative === false && <TabBar />}
-        </div>
+      <body>
+        <AuthProvider>
+          <ProtectedLayout>{children}</ProtectedLayout>{" "}
+          {/* AuthProvider 내부에서 보호된 레이아웃 사용 */}
+        </AuthProvider>
       </body>
     </html>
   );

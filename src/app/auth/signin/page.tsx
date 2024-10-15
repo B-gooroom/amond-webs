@@ -5,7 +5,7 @@ import Input from "@/components/Input/page";
 import { Spacer } from "@/components/Spacer/page";
 import { supabase } from "@/utils/supabase/client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export default function SignIn() {
@@ -13,6 +13,10 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const params = useSearchParams();
+  const redirectTo = params.get("redirectTo") || "/qna";
+
+  console.log("redirectTo >>", redirectTo);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +29,7 @@ export default function SignIn() {
       setMessage(`Error: ${error.message}`);
     } else {
       setMessage("로그인 성공!");
+      // router.push(redirectTo);
       router.push("/qna");
     }
   };

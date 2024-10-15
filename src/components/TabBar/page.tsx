@@ -1,3 +1,4 @@
+"use client";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -36,13 +37,7 @@ export default function TabBar() {
   const currentPath = usePathname();
 
   const renderTab = ({ path, label, activeIcon, inactiveIcon }: TabProps) => (
-    <Link
-      key={path}
-      className="flex flex-col items-center"
-      // href={`/${path}`}
-      href={path}
-      // onClick={() => router.push(path)}
-    >
+    <Link key={path} className="flex flex-col items-center" href={path}>
       <Icon icon={currentPath === path ? activeIcon : inactiveIcon} />
       <p
         className={classNames(
