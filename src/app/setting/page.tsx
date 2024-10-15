@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 const settingItems = [
   { title: "계정", path: "/setting/account" },
+  { title: "사업자 인증", path: "/setting/verified" },
   { title: "북마크", path: "/setting/bookmark" },
   { title: "좋아요", path: "/setting/like" },
   { title: "알림 설정", path: "/setting/notification" },

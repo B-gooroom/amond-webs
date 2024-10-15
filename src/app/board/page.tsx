@@ -25,7 +25,7 @@ export default function Board() {
   return (
     <div className="w-full h-[100vh]">
       <Header title="소통하다" rightItems={["search", "notification"]} />
-      {!isVerified ? (
+      {isVerified ? (
         <BoardList />
       ) : (
         <section className="px-16 flex-col flex gap-8 items-center justify-center h-[100vh]">
@@ -43,7 +43,7 @@ export default function Board() {
           <Spacer className="h-16" />
           <div className="text-caption1">
             <span className="border-b text-ad-brown-800 border-ad-brown-800">
-              <Link href="/">사업자 인증</Link>
+              <Link href="/setting/verified">사업자 인증</Link>
             </span>
             <span> 바로 가기</span>
           </div>
