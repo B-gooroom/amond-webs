@@ -1,11 +1,11 @@
 export const HIDE_TABBAR_ROUTES = [
-  "/", // 홈
   "/auth/signup", // 회원가입
   "/auth/signin", // 로그인
   "/post", // 게시글 작성
   "/notification", // 알림
   "/profile/edit", // 프로필 수정
   "/setting", // 설정
+  "/setting/verified", // 사업자 인증
   "/info", // 정보 페이지
   "/qna/list", // Q&A 리스트
   "/login", // 로그인
