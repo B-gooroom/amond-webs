@@ -5,3 +5,11 @@ export type FAQ = {
   category: string;
   is_active: boolean;
 };
+
+export type AnnouncementData = {
+  announcement_id: number;
+  title: string;
+  content: string;
+  created_at: Date;
+  is_active: boolean;
+};

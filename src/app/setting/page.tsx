@@ -12,7 +12,7 @@ const settingItems = [
   { title: "좋아요", path: "/setting/like" },
   { title: "알림 설정", path: "/setting/notification" },
   { title: "고객센터", path: "/setting/customer-service" },
-  { title: "공지사항", path: "/setting/notice" },
+  { title: "공지사항", path: "/setting/announcement" },
   { title: "서비스 이용약관", path: "/setting/terms-of-service" },
   { title: "개인정보처리방침", path: "/setting/privacy-policy" },
   { title: "차단/신고", path: "/setting/block-report" },
