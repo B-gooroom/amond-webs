@@ -4,6 +4,6 @@ export const EXCLUDED_ROUTES = [
   "/qna",
   "/info",
   "/login",
-  "auth/signin",
+  "/auth/signin",
   "/auth/signup",
 ];

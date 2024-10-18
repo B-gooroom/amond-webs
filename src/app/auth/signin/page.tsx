@@ -29,8 +29,7 @@ export default function SignIn() {
       setMessage(`Error: ${error.message}`);
     } else {
       setMessage("로그인 성공!");
-      // router.push(redirectTo);
-      router.push("/qna");
+      router.push(redirectTo);
     }
   };
 

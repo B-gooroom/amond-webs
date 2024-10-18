@@ -23,12 +23,14 @@ export default function Setting() {
   const router = useRouter();
 
   const handleLogOut = async () => {
-    console.log("handleLogOut");
     const { error } = await supabase.auth.signOut();
+
     if (error) {
       console.log("Error logging out:", error.message);
     } else {
+      console.log("Logged out!");
       router.push("/qna");
+      // TODO: 페이지 이동 후 세션을 다시 확인하여 상태 업데이트 reload문제 해결
     }
   };
 
@@ -55,6 +57,7 @@ export default function Setting() {
       <div className="pt-10 px-16">
         <button
           onClick={() => {
+            // handleAuth();
             handleLogOut();
           }}
         >

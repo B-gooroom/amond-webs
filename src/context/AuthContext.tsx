@@ -1,4 +1,3 @@
-// context/AuthContext.tsx
 import { supabase } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -21,27 +20,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (error) {
         console.error("Error fetching user:", error.message);
-        return null;
+        setLoading(false);
+        return;
       }
 
-      if (data.user) {
-        setData(data.user);
-        setLoading(false);
+      if (data?.user) {
+        setData(data.user); // 유저 데이터가 있으면 상태를 업데이트
+      } else {
+        setData(null); // 유저 데이터가 없으면 로그아웃 상태로 설정
       }
     };
 
     getSession();
 
-    // // 세션 상태가 변경될 때 감지합니다.
-    // const { data: authListener } = supabase.auth.onAuthStateChange(
-    //   (_event, session) => {
-    //     setData(data);
-    //   }
-    // );
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        // console.log("event in AuthContext >>", _event);
+        if (session) {
+          setData(session.user); // 세션이 있으면 유저 데이터 업데이트
+        }
+        setLoading(false); // 로딩 상태 업데이트
+      }
+    );
 
-    // return () => {
-    //   authListener?.subscription.unsubscribe();
-    // };
+    // 세션 상태가 변경될 때 감지합니다.
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
   }, []);
 
   return (
