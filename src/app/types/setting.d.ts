@@ -6,7 +6,13 @@ export type FAQ = {
   is_active: boolean;
 };
 
-export type AnnouncementData = {
+export type AnnouncementList = {
+  announcement_id: number;
+  title: string;
+  created_at: Date;
+};
+
+export type AnnouncementDetail = {
   announcement_id: number;
   title: string;
   content: string;
