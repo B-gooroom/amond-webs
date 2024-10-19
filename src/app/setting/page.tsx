@@ -1,10 +1,12 @@
 "use client";
 import Header from "@/components/Header/page";
 import Icon from "@/components/Icon/page";
+import { Modal } from "@/components/Modal/page";
 import { supabase } from "@/utils/supabase/client";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const settingItems = [
   {
@@ -88,6 +90,7 @@ interface linkClickProps {
 
 export default function Setting() {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태
 
   const handleLogOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -103,10 +106,9 @@ export default function Setting() {
   const itemLinkClick = ({ title, e }: linkClickProps) => {
     if (title === "로그아웃") {
       e.preventDefault(); // Link의 기본 동작을 막고 로그아웃 처리
-      // handleLogOut();
+      setIsModalOpen(true);
     } else if (title === "업데이트") {
       e.preventDefault(); // 업데이트 클릭 시 아무 동작도 하지 않음
-      alert("현재 최신 버전입니다.");
     }
   };
 
@@ -146,15 +148,12 @@ export default function Setting() {
           );
         })}
       </div>
-      <div className="pt-10 px-16">
-        <button
-          onClick={() => {
-            handleLogOut();
-          }}
-        >
-          로그아웃
-        </button>
-      </div>
+      <Modal
+        body="로그아웃 하시겠어요?"
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // 취소 클릭 시 모달 닫기
+        onConfirm={handleLogOut} // 로그아웃 클릭 시 로그아웃 처리
+      />
     </div>
   );
 }
