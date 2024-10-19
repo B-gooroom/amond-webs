@@ -23,11 +23,11 @@
 
 body {
   width: 100%;
-  max-width: 500px;
+  max-width: 498px;
   margin: auto;
-  /* border-left: 1px solid #e0e0d1; */
-  /* border-right: 1px solid #e0e0d1; */
-  outline: solid 1px #e0e0d1;
+  border-left: 1px solid #e0e0d1;
+  border-right: 1px solid #e0e0d1;
+  /* outline: solid 1px #e0e0d1; */
   background-color: #ffffff;
   height: 100%;
   color: #212121;
@@ -35,12 +35,12 @@ body {
 
 .tab {
   width: 100%;
-  max-width: 500px;
+  max-width: 498px;
   margin: auto;
-  /* border-left: 1px solid #e0e0d1;
+  border-left: 1px solid #e0e0d1;
   border-right: 1px solid #e0e0d1;
-  border-top: 1px solid #e0e0d1; */
-  outline: solid 1px #e0e0d1;
+  border-top: 1px solid #e0e0d1;
+  /* outline: solid 1px #e0e0d1; */
   background-color: #ffffff;
   position: fixed;
   bottom: 0;
