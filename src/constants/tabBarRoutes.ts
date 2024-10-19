@@ -10,6 +10,7 @@ export const HIDE_TABBAR_ROUTES = [
   "/qna/list", // Q&A 리스트
   "/login", // 로그인
   "/setting/announcement", // 공지사항
+  "/setting/customer-service", // 고객센터
 ];
 
 // 정규식 패턴을 사용한 경로
