@@ -74,7 +74,8 @@ function ProtectedLayout({ children }: { children: React.ReactNode }) {
   }, [currentPath, data, loading, router]);
 
   return (
-    <div className={hideTabBar ? "h-[100vh]" : ""}>
+    // <div className={hideTabBar ? "h-[100vh]" : ""}>
+    <div>
       {children}
       <div className="pb-[79px]">
         {!hideTabBar && isNative === false && <TabBar />}
