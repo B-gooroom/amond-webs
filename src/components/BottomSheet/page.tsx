@@ -21,7 +21,7 @@ export function BottomSheet({ actions, isOpen, onClose }: BottomSheetProps) {
       ></div>
 
       <div
-        className={`fixed inset-x-0 bottom-0 bg-white px-16 pt-24 rounded-t-2xl shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-x-0 bottom-0 bg-white px-16 pt-24 rounded-t-2xl shadow-lg transform transition-transform duration-300 ease-in-out max-w-[500px] m-auto ${
           isOpen ? "translate-y-0" : "translate-y-full"
         }`}
         style={{
