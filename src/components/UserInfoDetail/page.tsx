@@ -1,8 +1,11 @@
+"use client";
 import { formatDate } from "@/utils/formateDate";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { BottomSheet } from "../BottomSheet/page";
 import Icon from "../Icon/page";
+import { Modal } from "../Modal/page";
 import { Spacer } from "../Spacer/page";
 
 interface UserInfoDetailProps {
@@ -18,7 +21,9 @@ export default function UserInfoDetail({
   created_at,
   isWriter,
 }: UserInfoDetailProps) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const [qnaRemove, setQnaRemove] = useState(false);
 
   const handleEdit = () => {
     console.log("글 수정하기 클릭");
@@ -26,6 +31,7 @@ export default function UserInfoDetail({
 
   const handleDelete = () => {
     console.log("글 삭제하기 클릭");
+    setQnaRemove(true);
   };
 
   const handleOpenBottomSheet = () => {
@@ -82,11 +88,21 @@ export default function UserInfoDetail({
               { label: "이 사용자의 글 보지 않기", onClick: handleEdit },
               {
                 label: "신고하기",
-                onClick: () => console.log("신고하기 클릭"),
+                onClick: () => router.push("/report"),
               },
             ]}
           />
         ))}
+      {qnaRemove && (
+        <Modal
+          body="글을 삭제하시겠습니까?"
+          isOpen={qnaRemove}
+          onClose={() => setQnaRemove(false)}
+          onConfirm={() => console.log("글 삭제하기")}
+          type="double"
+          items={["취소", "삭제"]}
+        />
+      )}
     </div>
   );
 }
