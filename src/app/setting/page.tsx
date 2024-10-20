@@ -153,6 +153,7 @@ export default function Setting() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)} // 취소 클릭 시 모달 닫기
         onConfirm={handleLogOut} // 로그아웃 클릭 시 로그아웃 처리
+        type="double"
       />
     </div>
   );

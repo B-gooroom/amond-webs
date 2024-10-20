@@ -7,6 +7,7 @@ interface LogoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  type: "single" | "double";
 }
 
 export function Modal({
@@ -15,6 +16,7 @@ export function Modal({
   isOpen,
   onClose,
   onConfirm,
+  type,
 }: LogoutModalProps) {
   if (!isOpen) return null;
 
@@ -33,19 +35,29 @@ export function Modal({
             <Spacer className="h-8" />
           </>
         )}
-        <div className="flex justify-between w-full ">
-          <Button
-            label="취소"
-            type="normal"
-            onClick={onClose} // 취소 버튼 클릭 시 모달 닫기
-          />
-          <Button
-            label="로그아웃"
-            type="primary"
-            className="-ml-[24px]"
-            onClick={onConfirm} // 로그아웃 버튼 클릭 시 confirm 동작 수행
-          ></Button>
-        </div>
+        {type === "double" ? (
+          <div className="flex justify-between w-full">
+            <Button
+              label="취소"
+              type="normal"
+              onClick={onClose} // 취소 버튼 클릭 시 모달 닫기
+            />
+            <Button
+              label="로그아웃"
+              type="primary"
+              className="-ml-[24px]"
+              onClick={onConfirm} // 로그아웃 버튼 클릭 시 confirm 동작 수행
+            ></Button>
+          </div>
+        ) : (
+          <div className="w-full">
+            <Button
+              label="로그아웃"
+              type="primary"
+              onClick={onConfirm} // 로그아웃 버튼 클릭 시 confirm 동작 수행
+            />
+          </div>
+        )}
       </div>
     </div>
   );
