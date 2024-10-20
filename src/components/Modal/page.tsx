@@ -32,30 +32,21 @@ export function Modal({
         {body && (
           <>
             <h2 className="text-subtitle2">{body}</h2>
-            <Spacer className="h-8" />
+            <Spacer className="h-24" />
           </>
         )}
         {type === "double" ? (
-          <div className="flex justify-between w-full">
-            <Button
-              label="취소"
-              type="normal"
-              onClick={onClose} // 취소 버튼 클릭 시 모달 닫기
-            />
+          <div className="flex justify-between w-full gap-8">
+            <Button label="취소" type="normal" onClick={onClose} />
             <Button
               label="로그아웃"
               type="primary"
-              className="-ml-[24px]"
-              onClick={onConfirm} // 로그아웃 버튼 클릭 시 confirm 동작 수행
+              onClick={onConfirm}
             ></Button>
           </div>
         ) : (
           <div className="w-full">
-            <Button
-              label="로그아웃"
-              type="primary"
-              onClick={onConfirm} // 로그아웃 버튼 클릭 시 confirm 동작 수행
-            />
+            <Button label="로그아웃" type="primary" onClick={onConfirm} />
           </div>
         )}
       </div>

@@ -41,7 +41,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center relative">
       <Header title="" leftItem="IconLeftArrow" />
       <Spacer className="h-[100px]" />
       <div className="flex justify-center">
@@ -90,7 +90,7 @@ export default function SignIn() {
         </div>
       </div>
       {message && <p>{message}</p>}
-      <div className="flex flex-col fixed bottom-0 w-full pb-[20px]">
+      <div className="flex flex-col px-16 pt-14 pb-[34px] w-full bottom-0 -ml-[1px] fixed gap-8 max-w-[500px]">
         <Button
           label="로그인"
           type={isDisabled() ? "primary" : "disabled"}
@@ -100,7 +100,6 @@ export default function SignIn() {
         <Button
           label="회원가입"
           type={"normal"}
-          className="-mt-20"
           onClick={() => router.push("/auth/signup")}
         />
       </div>

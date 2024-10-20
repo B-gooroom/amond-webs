@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   className,
 }) => {
   // 기본 스타일
-  const baseStyles = "w-full px-16 py-14 h-[80px] max-w-[498px]";
+  const baseStyles = "w-full h-[52px] max-w-[466px]";
 
   // 타입별 스타일
   const typeStyles = {

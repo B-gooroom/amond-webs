@@ -120,7 +120,7 @@ export default function Post() {
           <span className="text-caption1 text-ad-gray-500">0 /10</span>
         </div>
       </section>
-      <div className="fixed bottom-0 w-full pb-[20px]">
+      <div className="fixed bottom-0 w-full px-16 pt-14 pb-[34px] -ml-[1px] max-w-[500px]">
         <Button
           label="작성 완료"
           type={isDisabled() ? "primary" : "disabled"}
