@@ -66,7 +66,7 @@ const settingItems = [
   {
     title: "차단/신고",
     body: "회원 차단, 신고 내역",
-    path: "/setting/block-report",
+    path: "/setting/report",
     icon: "IconSettingReport",
   },
   {

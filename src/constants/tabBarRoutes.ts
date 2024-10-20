@@ -12,6 +12,7 @@ export const HIDE_TABBAR_ROUTES = [
   "/setting/account", // 설정 - 계정
   "/setting/password", // 설정 - 비밀번호 변경
   "/setting/remove", // 설정 - 비밀번호 변경
+  "/setting/report", // 설정 - 차단/신고
   "/setting/announcement", // 설정 - 공지사항
   "/setting/customer-service", // 설정 - 고객센터
 ];
