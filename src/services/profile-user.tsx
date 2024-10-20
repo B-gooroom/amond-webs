@@ -17,7 +17,7 @@ export async function ProfileUser() {
     .from("users")
     .select("*")
     .eq("email", userEmail)
-    .in("used", [true])
+    .in("is_used", [true])
     .single();
 
   if (userError) {

@@ -10,6 +10,8 @@ export const HIDE_TABBAR_ROUTES = [
   "/qna/list", // Q&A 리스트
   "/login", // 로그인
   "/setting/account", // 설정 - 계정
+  "/setting/password", // 설정 - 비밀번호 변경
+  "/setting/remove", // 설정 - 비밀번호 변경
   "/setting/announcement", // 설정 - 공지사항
   "/setting/customer-service", // 설정 - 고객센터
 ];

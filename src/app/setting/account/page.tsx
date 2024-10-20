@@ -6,9 +6,11 @@ import Input from "@/components/Input/page";
 import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import { ProfileUser } from "@/services/profile-user";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Account() {
+  const router = useRouter();
   const [userData, setUserData] = useState<User | null>(null);
   const [phoneParts, setPhoneParts] = useState({
     first: "010",
@@ -170,10 +172,16 @@ export default function Account() {
       </section>
       <Spacer className="h-16" />
       <div className="px-16 flex justify-between">
-        <span className="text-caption1 text-ad-gray-500 underline">
+        <span
+          className="text-caption1 text-ad-gray-500 underline cursor-pointer"
+          onClick={() => router.push("/setting/password")}
+        >
           비밀번호 변경
         </span>
-        <span className="text-caption1 text-ad-gray-500 underline">
+        <span
+          className="text-caption1 text-ad-gray-500 underline cursor-pointer"
+          onClick={() => router.push("/setting/remove")}
+        >
           회원 탈퇴
         </span>
       </div>
