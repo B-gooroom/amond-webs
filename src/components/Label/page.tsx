@@ -12,7 +12,7 @@ export default function Label({ children, size, color }: LabelProps) {
   return size === "small" ? (
     <div
       className={classnames(
-        "text-caption2 rounded-2xl px-8 py-4",
+        "text-caption2 rounded-2xl px-8 py-4 w-fit",
         color === "brown"
           ? "bg-ad-brown-800"
           : color === "gray"
@@ -28,7 +28,7 @@ export default function Label({ children, size, color }: LabelProps) {
   ) : (
     <div
       className={classnames(
-        "text-caption1 rounded-2xl px-16 py-8",
+        "text-caption1 rounded-2xl px-16 py-8 w-fit",
         color === "brown"
           ? "bg-ad-brown-800"
           : color === "gray"
