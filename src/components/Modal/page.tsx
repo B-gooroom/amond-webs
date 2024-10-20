@@ -8,6 +8,7 @@ interface LogoutModalProps {
   onClose: () => void;
   onConfirm: () => void;
   type: "single" | "double";
+  items?: string[];
 }
 
 export function Modal({
@@ -17,6 +18,7 @@ export function Modal({
   onClose,
   onConfirm,
   type,
+  items,
 }: LogoutModalProps) {
   if (!isOpen) return null;
 
@@ -37,12 +39,14 @@ export function Modal({
         )}
         {type === "double" ? (
           <div className="flex justify-between w-full gap-8">
-            <Button label="취소" type="normal" onClick={onClose} />
-            <Button
-              label="로그아웃"
-              type="primary"
-              onClick={onConfirm}
-            ></Button>
+            {items?.map((item, index) => (
+              <Button
+                key={index}
+                label={item}
+                type={index === 0 ? "normal" : "primary"}
+                onClick={index === 0 ? onClose : onConfirm}
+              />
+            ))}
           </div>
         ) : (
           <div className="w-full">

@@ -66,7 +66,7 @@ export default function Header({
   // }, []);
 
   const handleLeftItem = () => {
-    if (leftItem === "IconLeftArrow") {
+    if (leftItem === "IconLeftArrow" || leftItem === "IconClose") {
       router.back();
     }
   };
