@@ -1,5 +1,6 @@
 "use client";
 
+import { QnaAddLikeProps } from "@/app/qna/[id]/page";
 import { supabase } from "@/utils/supabase/client";
 
 interface QnaDetailProps {
@@ -65,18 +66,18 @@ export async function QnaDetail({ id }: QnaDetailProps) {
 
   // 5. qna_likes QnA의 id를 기반으로 추가 정보를 가져옴
   // TODO: qna_likes 테이블을 추가하기
-  //   const { data: qnaDetailLike, error: qnaDetailLikeError } = await supabase
-  //   .from("qna_views")
-  //   .select("*")
-  //   .in("qna_id", qnaId);
+  const { data: qnaDetailLike, error: qnaDetailLikeError } = await supabase
+    .from("qna_likes")
+    .select("*")
+    .in("qna_id", qnaId);
 
-  // if (qnaDetailLikeError) {
-  //   console.error(
-  //     "Error fetching related data from another_table:",
-  //     qnaDetailLikeError.message
-  //   );
-  //   return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
-  // }
+  if (qnaDetailLikeError) {
+    console.error(
+      "Error fetching related data from another_table:",
+      qnaDetailLikeError.message
+    );
+    return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
+  }
 
   const result = qnaDetailData.map((qna) => ({
     ...qna,
@@ -87,11 +88,48 @@ export async function QnaDetail({ id }: QnaDetailProps) {
       (comment) => comment.qna_id === qna.qna_id
     ),
     qnaUser: qnaDetailUserData.filter((user) => user.user_id === qna.user_id),
-    // qnaLike: qnaDetailLike.filter(
-    //   (like) => like.qna_id === qna.qna_id
-    // ),
+    qnaLike: qnaDetailLike.filter((like) => like.qna_id === qna.qna_id),
   }));
 
   return result;
   // return qnaDetailData;
+}
+
+export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
+  const { data: existingLike, error: selectError } = await supabase
+    .from("qna_likes")
+    .select("*")
+    .eq("qna_id", qna_id)
+    .eq("user_id", user_id);
+
+  if (selectError) {
+    console.error("Error checking like:", selectError);
+    return;
+  }
+
+  if (existingLike && existingLike.length > 0) {
+    // 이미 좋아요를 눌렀다면 좋아요 취소 처리
+    const { error: deleteError } = await supabase
+      .from("qna_likes")
+      .delete()
+      .eq("qna_id", qna_id)
+      .eq("user_id", user_id);
+
+    if (deleteError) {
+      console.error("Error removing like:", deleteError);
+    } else {
+      console.log("Like removed");
+    }
+  } else {
+    // 좋아요가 없으면 추가
+    const { error: insertError } = await supabase
+      .from("qna_likes")
+      .insert([{ qna_id, user_id }]);
+
+    if (insertError) {
+      console.error("Error adding like:", insertError);
+    } else {
+      console.log("Like added");
+    }
+  }
 }

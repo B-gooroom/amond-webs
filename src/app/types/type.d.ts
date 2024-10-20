@@ -36,6 +36,13 @@ export type QnAImage = {
   is_deleted: boolean;
 };
 
+export type QnALike = {
+  like_id: number;
+  qna_id: number;
+  user_id: string;
+  created_at: Date;
+};
+
 export type QnA = {
   qna_id: number;
   title: string;
@@ -51,6 +58,7 @@ export type QnA = {
   qnaView: QnAView[];
   qnaImage: QnAImage[];
   qnaUser: User[];
+  qnaLike: QnALike[];
 };
 
 export type QnAPopular = {

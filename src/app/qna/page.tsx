@@ -109,11 +109,11 @@ export default function QnA() {
             );
           })}
         </section>
+        <Footer />
       </div>
       <PostButton>
         <Link href="/post">+ 글쓰기</Link>
       </PostButton>
-      <Footer />
     </>
   );
 }
