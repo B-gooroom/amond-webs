@@ -38,6 +38,8 @@ export default function Comment() {
               <UserInfoDetail
                 userNickname={qnaUser[0].nickname}
                 created_at={created_at}
+                isWriter={false}
+                // TODO: isWriter 로직 추가
               />
               <p className="text-subtitle2">{content}</p>
               <div className="pb-[16px] border-b flex gap-16">
