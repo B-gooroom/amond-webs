@@ -78,7 +78,8 @@ export default function Account() {
       <Spacer className="h-16" />
       <div className="flex justify-between px-16 items-center">
         <span className="text-body2 flex gap-[2px] items-center">
-          <Icon icon="IconError" /> 이메일 인증이 필요해요
+          <Icon icon="IconError" className="fill-ad-black" /> 이메일 인증이
+          필요해요
         </span>
         <Label size="medium" color="black">
           인증 메일 전송
