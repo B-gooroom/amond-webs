@@ -15,7 +15,6 @@ import Comment from "../components/Comment";
 
 export interface QnaAddLikeProps {
   qna_id: number;
-  user_id: string;
 }
 
 export interface QnaAddBookmarkProps {
@@ -57,8 +56,8 @@ export default function QnaDetailPage() {
     return <p>Loading...</p>;
   }
 
-  const addLike = async ({ qna_id, user_id }: QnaAddLikeProps) => {
-    const data = await QnaAddLike({ qna_id, user_id });
+  const addLike = async ({ qna_id }: QnaAddLikeProps) => {
+    const data = await QnaAddLike({ qna_id });
     // console.log(data);
     if (data) {
       setLikesCount((prev) => (hasLiked ? (prev ?? 0) - 1 : (prev ?? 0) + 1));
@@ -126,7 +125,7 @@ export default function QnaDetailPage() {
             )}
             <Spacer className="h-16" />
             <div className="pb-[32px] border-b flex gap-16">
-              <div onClick={() => addLike({ qna_id, user_id })}>
+              <div onClick={() => addLike({ qna_id })}>
                 <Icon
                   icon={hasLiked ? "IconFavoriteActive" : "IconFavorite"}
                   size={24}

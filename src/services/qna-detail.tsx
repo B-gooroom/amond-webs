@@ -117,12 +117,16 @@ export async function QnaDetail({ id }: QnaDetailProps) {
   // return qnaDetailData;
 }
 
-export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
+export async function QnaAddLike({ qna_id }: QnaAddLikeProps) {
+  const user = await ProfileUser();
+
+  const userId = user?.user_id;
+
   const { data: existingLike, error: selectError } = await supabase
     .from("qna_likes")
     .select("*")
     .eq("qna_id", qna_id)
-    .eq("user_id", user_id);
+    .eq("user_id", userId);
 
   if (selectError) {
     console.error("Error checking like:", selectError);
@@ -135,7 +139,7 @@ export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
       .from("qna_likes")
       .delete()
       .eq("qna_id", qna_id)
-      .eq("user_id", user_id);
+      .eq("user_id", userId);
 
     if (deleteError) {
       console.error("Error removing like:", deleteError);
@@ -147,7 +151,7 @@ export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
     // 좋아요가 없으면 추가
     const { error: insertError } = await supabase
       .from("qna_likes")
-      .insert([{ qna_id, user_id }]);
+      .insert([{ qna_id, user_id: userId }]);
 
     if (insertError) {
       console.error("Error adding like:", insertError);

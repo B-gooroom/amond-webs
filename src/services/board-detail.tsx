@@ -1,4 +1,7 @@
-import { BoardAddBookmarkProps } from "@/app/board/[id]/page";
+import {
+  BoardAddBookmarkProps,
+  BoardAddLikeProps,
+} from "@/app/board/[id]/page";
 import { supabase } from "@/utils/supabase/client";
 import { ProfileUser } from "./profile/profile-user";
 
@@ -124,6 +127,51 @@ export async function BoardDetail({ id }: BoardDetailProps) {
   }));
 
   return result;
+}
+
+export async function BoardAddLike({ board_id }: BoardAddLikeProps) {
+  const user = await ProfileUser();
+
+  const userId = user?.user_id;
+
+  const { data: existingLike, error: selectError } = await supabase
+    .from("board_likes")
+    .select("*")
+    .eq("board_id", board_id)
+    .eq("user_id", userId);
+
+  if (selectError) {
+    console.error("Error checking like:", selectError);
+    return;
+  }
+
+  if (existingLike && existingLike.length > 0) {
+    // 이미 좋아요를 눌렀다면 좋아요 취소 처리
+    const { error: deleteError } = await supabase
+      .from("board_likes")
+      .delete()
+      .eq("board_id", board_id)
+      .eq("user_id", userId);
+
+    if (deleteError) {
+      console.error("Error removing like:", deleteError);
+    } else {
+      console.log("Like removed");
+      return true;
+    }
+  } else {
+    // 좋아요가 없으면 추가
+    const { error: insertError } = await supabase
+      .from("board_likes")
+      .insert([{ board_id, user_id: userId }]);
+
+    if (insertError) {
+      console.error("Error adding like:", insertError);
+    } else {
+      console.log("Like added");
+      return true;
+    }
+  }
 }
 
 export async function BoardAddBookmark({ board_id }: BoardAddBookmarkProps) {

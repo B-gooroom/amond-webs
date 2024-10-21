@@ -6,8 +6,11 @@ import Icon from "@/components/Icon/page";
 import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
-import { BoardAddLike } from "@/services/board-add-like";
-import { BoardAddBookmark, BoardDetail } from "@/services/board-detail";
+import {
+  BoardAddBookmark,
+  BoardAddLike,
+  BoardDetail,
+} from "@/services/board-detail";
 import { BoardViewIncrement } from "@/services/board-view-increment";
 import { ProfileUser } from "@/services/profile/profile-user";
 import Image from "next/image";
@@ -16,7 +19,6 @@ import { useEffect, useState } from "react";
 
 export interface BoardAddLikeProps {
   board_id: number;
-  user_id: string;
 }
 
 export interface BoardAddBookmarkProps {
@@ -44,6 +46,7 @@ export default function BoardDetailPage() {
       if (detailData) {
         setBoardDetail(detailData);
         setLikesCount(detailData[0].boardLike.length); // 좋아요 수 초기 설정
+        setHasLiked(detailData[0].boardLike.length > 0);
         setHasBookmarked(detailData[0].boardBookmark.length > 0);
       }
 
@@ -53,32 +56,12 @@ export default function BoardDetailPage() {
     postDetail();
   }, [id]);
 
-  useEffect(() => {
-    if (boardDetail && userData) {
-      const liked = boardDetail[0].boardLike.some(
-        (board) => board.user_id === userData.user_id
-      );
-      setHasLiked(liked);
-    }
-  }, [boardDetail, userData]);
+  const addLike = async ({ board_id }: BoardAddLikeProps) => {
+    const data = await BoardAddLike({ board_id });
 
-  const addLike = async ({ board_id, user_id }: BoardAddLikeProps) => {
-    if (hasLiked) {
-      // 이미 좋아요를 눌렀다면 좋아요 취소 (좋아요 수 감소)
-      const data = await BoardAddLike({ board_id, user_id });
-      if (data) {
-        setLikesCount(likesCount - 1);
-        setHasLiked(false);
-      }
-      console.log("좋아요 제거", data);
-    } else {
-      // 좋아요 추가 (좋아요 수 증가)
-      const data = await BoardAddLike({ board_id, user_id });
-      if (data) {
-        setLikesCount(likesCount + 1);
-        setHasLiked(true);
-      }
-      console.log("좋아요 추가", data);
+    if (data) {
+      setLikesCount((prev) => (hasLiked ? prev - 1 : prev + 1));
+      setHasLiked((prev) => !prev);
     }
   };
 
@@ -147,7 +130,7 @@ export default function BoardDetailPage() {
             )}
             <Spacer className="h-16" />
             <div className="pb-[32px] border-b flex gap-16">
-              <div onClick={() => addLike({ board_id, user_id })}>
+              <div onClick={() => addLike({ board_id })}>
                 {/* <Icon icon="IconFavorite" size={24} /> */}
                 <Icon
                   icon={hasLiked ? "IconFavoriteActive" : "IconFavorite"}
