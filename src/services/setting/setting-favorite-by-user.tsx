@@ -88,13 +88,13 @@ export async function QnaFavoriteByUser() {
   const result = qnaListData.map((qna) => ({
     ...qna,
     qnaComment: qnaLikeListComment.filter(
-      (comment) => comment.qna_id === qnaId
+      (comment) => comment.qna_id === qna.qna_id
     ), // 매칭되는 데이터 추가
     qnaCategory: categoryData.filter(
       (category) => category.category_id === qna.category_id
     ), // 매칭되는 데이터 추가
-    qnaView: qnaLikeListView.filter((view) => view.qna_id === qnaId), // 매칭되는 데이터 추가
-    qnaImage: qnaLikeListImage.filter((image) => image.qna_id === qnaId), //
+    qnaView: qnaLikeListView.filter((view) => view.qna_id === qna.qna_id), // 매칭되는 데이터 추가
+    qnaImage: qnaLikeListImage.filter((image) => image.qna_id === qna.qna_id), //
   }));
   return result;
 }
@@ -182,19 +182,21 @@ export async function BoardFavoriteByUser() {
   }
 
   // 6. Board 데이터에 another_table 데이터를 매핑
-  const result = boardListData.map((qna) => ({
-    ...qna,
+  const result = boardListData.map((board) => ({
+    ...board,
     boardComment: boardLikeListComment.filter(
-      (comment) => comment.board_id === boardId
+      (comment) => comment.board_id === board.board_id
     ), // 매칭되는 데이터 추가
     boardCategory: categoryData.filter(
-      (category) => category.category_id === qna.category_id
+      (category) => category.category_id === board.category_id
     ), // 매칭되는 데이터 추가
-    boardView: boardLikeListView.filter((view) => view.board_id === boardId), // 매칭되는 데이터 추가
+    boardView: boardLikeListView.filter(
+      (view) => view.board_id === board.board_id
+    ), // 매칭되는 데이터 추가
     boardImage: boardLikeListImage.filter(
-      (image) => image.board_id === boardId
+      (image) => image.board_id === board.board_id
     ),
-    boardLike: boardLikeData.filter((like) => like.board_id === boardId),
+    boardLike: boardLikeData.filter((like) => like.board_id === board.board_id),
   }));
   return result;
 }
