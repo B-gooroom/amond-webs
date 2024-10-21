@@ -4,7 +4,7 @@ import Icon from "@/components/Icon/page";
 import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
-import { ProfileUser } from "@/services/profile-user";
+import { ProfileUser } from "@/services/profile/profile-user";
 import { QnaAddLike, QnaDetail } from "@/services/qna-detail";
 import { QnaViewIncrement } from "@/services/qna-view-increment";
 import Image from "next/image";

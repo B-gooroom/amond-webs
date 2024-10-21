@@ -1,7 +1,7 @@
 "use client"; // 클라이언트 컴포넌트로 선언
 
 import { supabase } from "@/utils/supabase/client";
-import { ProfileUser } from "./profile-user";
+import { ProfileUser } from "./profile/profile-user";
 
 interface PostQnaProps {
   title: string;

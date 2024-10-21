@@ -4,7 +4,7 @@ import Label from "@/components/Label/page";
 import PostButton from "@/components/PostButton/page";
 import { Spacer } from "@/components/Spacer/page";
 import Tab from "@/components/Tab/page";
-import { ProfileUser } from "@/services/profile-user";
+import { ProfileUser } from "@/services/profile/profile-user";
 import { getAgeGroup } from "@/utils/ageConverter";
 import Image from "next/image";
 import Link from "next/link";

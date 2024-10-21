@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/supabase/client";
-import { ProfileUser } from "./profile-user";
+import { ProfileUser } from "./profile/profile-user";
 
 export async function BusinessVerifiedCheck() {
   // 회사 인증 여부 확인

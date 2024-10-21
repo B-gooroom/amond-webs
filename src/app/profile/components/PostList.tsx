@@ -6,7 +6,7 @@ import { Spacer } from "@/components/Spacer/page";
 import {
   BoardListByUser,
   QnaListByUser,
-} from "@/services/profile-activity-by-user";
+} from "@/services/profile/profile-activity-by-user";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 

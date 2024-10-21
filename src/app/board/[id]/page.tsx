@@ -9,7 +9,7 @@ import UserInfoDetail from "@/components/UserInfoDetail/page";
 import { BoardAddLike } from "@/services/board-add-like";
 import { BoardDetail } from "@/services/board-detail";
 import { BoardViewIncrement } from "@/services/board-view-increment";
-import { ProfileUser } from "@/services/profile-user";
+import { ProfileUser } from "@/services/profile/profile-user";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";

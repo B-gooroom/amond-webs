@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/supabase/client";
-import { ProfileUser } from "./profile-user";
+import { ProfileUser } from "./profile/profile-user";
 
 interface UserAccountDeactivateResponse {
   setErrorMessage: (message: string) => void;

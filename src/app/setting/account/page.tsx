@@ -6,7 +6,7 @@ import Input from "@/components/Input/page";
 import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import Tooltip from "@/components/Tooltip/page";
-import { ProfileUser } from "@/services/profile-user";
+import { ProfileUser } from "@/services/profile/profile-user";
 import { supabase } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
