@@ -79,6 +79,24 @@ export async function QnaDetail({ id }: QnaDetailProps) {
     return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
   }
 
+  // 6. qna_id로 user가 해당 QnA를 북마크 했는지 확인
+  const { data: qnaDetailBookmark, error: qnaDetailBookmarkError } =
+    await supabase
+      .from("qna_bookmarks")
+      .select("*")
+      .in("qna_id", qnaId)
+      .eq("user_id", userId);
+
+  if (qnaDetailBookmarkError) {
+    console.error(
+      "Error fetching related data from another_table:",
+      qnaDetailBookmarkError.message
+    );
+    return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
+  }
+
+  console.log("qnaDetailBookmark", qnaDetailBookmark);
+
   const result = qnaDetailData.map((qna) => ({
     ...qna,
     qnaCategory: categoryData.filter(
@@ -89,6 +107,9 @@ export async function QnaDetail({ id }: QnaDetailProps) {
     ),
     qnaUser: qnaDetailUserData.filter((user) => user.user_id === qna.user_id),
     qnaLike: qnaDetailLike.filter((like) => like.qna_id === qna.qna_id),
+    qnaBookmark: qnaDetailBookmark.filter(
+      (bookmark) => bookmark.qna_id === qna.qna_id
+    ),
   }));
 
   return result;
@@ -131,6 +152,45 @@ export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
       console.error("Error adding like:", insertError);
     } else {
       console.log("Like added");
+      return true;
+    }
+  }
+}
+
+export async function QnaAddBookmark({ qna_id, user_id }: QnaAddLikeProps) {
+  const { data: existingBookmark, error: selectError } = await supabase
+    .from("qna_bookmarks")
+    .select("*")
+    .eq("qna_id", qna_id)
+    .eq("user_id", user_id);
+
+  if (selectError) {
+    console.error("Error checking bookmark:", selectError);
+    return;
+  }
+
+  if (existingBookmark && existingBookmark.length > 0) {
+    const { error: deleteError } = await supabase
+      .from("qna_bookmarks")
+      .delete()
+      .eq("qna_id", qna_id)
+      .eq("user_id", user_id);
+
+    if (deleteError) {
+      console.error("Error removing bookmark:", deleteError);
+    } else {
+      console.log("Bookmark removed");
+      return true;
+    }
+  } else {
+    const { error: insertError } = await supabase
+      .from("qna_bookmarks")
+      .insert([{ qna_id, user_id }]);
+
+    if (insertError) {
+      console.error("Error adding bookmark:", insertError);
+    } else {
+      console.log("Bookmark added");
       return true;
     }
   }

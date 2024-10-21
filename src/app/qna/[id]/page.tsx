@@ -5,7 +5,7 @@ import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
 import { ProfileUser } from "@/services/profile/profile-user";
-import { QnaAddLike, QnaDetail } from "@/services/qna-detail";
+import { QnaAddBookmark, QnaAddLike, QnaDetail } from "@/services/qna-detail";
 import { QnaViewIncrement } from "@/services/qna-view-increment";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -26,6 +26,8 @@ export default function QnaDetailPage() {
   const [likesCount, setLikesCount] = useState<number | null>(null); // 좋아요 수 상태 관리
   const [hasLiked, setHasLiked] = useState<boolean>(false); // 좋아요 여부 상태
 
+  const [hasBookmarked, setHasBookmarked] = useState<boolean>(false); // 북마크 여부 상태
+
   useEffect(() => {
     const postDetail = async () => {
       const userData = await ProfileUser();
@@ -34,6 +36,8 @@ export default function QnaDetailPage() {
       if (detailData) {
         setQnaDetail(detailData);
         setLikesCount(detailData[0].qnaLike.length);
+        setHasLiked(detailData[0].qnaLike.length > 0);
+        setHasBookmarked(detailData[0].qnaBookmark.length > 0);
       }
       if (userData) {
         setUserData(userData);
@@ -45,34 +49,25 @@ export default function QnaDetailPage() {
     postDetail();
   }, [id]);
 
-  useEffect(() => {
-    if (qnaDetail && userData) {
-      const liked = qnaDetail[0].qnaLike.some(
-        (qna) => qna.user_id === userData.user_id
-      );
-      setHasLiked(liked);
-    }
-  }, [qnaDetail, userData]);
-
   if (!qnaDetail) {
     return <p>Loading...</p>;
   }
 
   const addLike = async ({ qna_id, user_id }: QnaAddLikeProps) => {
-    if (hasLiked) {
-      if (likesCount === null) return;
-      const data = await QnaAddLike({ qna_id, user_id });
-      if (data) {
-        setLikesCount(likesCount - 1);
-        setHasLiked(false);
-      }
-    } else {
-      if (likesCount === null) return;
-      const data = await QnaAddLike({ qna_id, user_id });
-      if (data) {
-        setLikesCount(likesCount + 1);
-        setHasLiked(true);
-      }
+    const data = await QnaAddLike({ qna_id, user_id });
+    // console.log(data);
+    if (data) {
+      setLikesCount((prev) => (hasLiked ? (prev ?? 0) - 1 : (prev ?? 0) + 1));
+      setHasLiked((prev) => !prev);
+    }
+  };
+
+  const addBookmark = async ({ qna_id, user_id }: QnaAddLikeProps) => {
+    // console.log("북마크 추가");
+    const data = await QnaAddBookmark({ qna_id, user_id });
+    // console.log(data);
+    if (data) {
+      setHasBookmarked((prev) => !prev);
     }
   };
 
@@ -89,12 +84,9 @@ export default function QnaDetailPage() {
           created_at,
           qnaComment,
           qnaImage,
-          qnaLike,
           user_id,
           qna_id,
         } = qna;
-
-        console.log("qnaLike", qnaLike);
 
         return (
           <div key={index} className="px-16">
@@ -137,8 +129,11 @@ export default function QnaDetailPage() {
                 />
                 <span className="text-caption1">{likesCount}</span>
               </div>
-              <div>
-                <Icon icon="IconBookmark" size={24} />
+              <div onClick={() => addBookmark({ qna_id, user_id })}>
+                <Icon
+                  icon={hasBookmarked ? "IconBookmarkActive" : "IconBookmark"}
+                  size={24}
+                />
               </div>
               <div>
                 <Icon icon="IconShare" size={24} />
