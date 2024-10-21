@@ -64,8 +64,6 @@ export default function Account() {
 
   // console.log("userData", userData);
 
-  console.log("emailVerified", emailVerified);
-
   const handlePhoneFirstChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {

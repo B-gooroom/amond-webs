@@ -16,8 +16,6 @@ export default function SignIn() {
   const params = useSearchParams();
   const redirectTo = params.get("redirectTo") || "/qna";
 
-  console.log("redirectTo >>", redirectTo);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const { error } = await supabase.auth.signInWithPassword({
