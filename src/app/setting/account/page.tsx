@@ -7,11 +7,13 @@ import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import Tooltip from "@/components/Tooltip/page";
 import { ProfileUser } from "@/services/profile-user";
+import { supabase } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Account() {
   const router = useRouter();
+  const [emailVerified, setEmailVerified] = useState(false);
   const [userData, setUserData] = useState<User | null>(null);
   const [phoneParts, setPhoneParts] = useState({
     first: "010",
@@ -40,10 +42,29 @@ export default function Account() {
         }
       }
     };
+
+    const checkEmailVerified = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      console.log("user", user);
+      setEmailVerified(user?.user_metadata.email_verified ? true : false);
+
+      // TODO: 이메일 인증 발송 로지기 추가
+    };
+
     userInfo();
+    checkEmailVerified();
   }, []);
 
   // console.log("userData", userData);
+
+  console.log("emailVerified", emailVerified);
 
   const handlePhoneFirstChange = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -80,16 +101,20 @@ export default function Account() {
           <Input placeholder="dd" value={userData?.email as string} disabled />
         </div>
       </section>
-      <Spacer className="h-16" />
-      <div className="flex justify-between px-16 items-center">
-        <span className="text-body2 flex gap-[2px] items-center">
-          <Icon icon="IconError" className="fill-ad-black" /> 이메일 인증이
-          필요해요
-        </span>
-        <Label size="medium" color="black">
-          인증 메일 전송
-        </Label>
-      </div>
+      {!emailVerified && (
+        <>
+          <Spacer className="h-16" />
+          <div className="flex justify-between px-16 items-center">
+            <span className="text-body2 flex gap-[2px] items-center underline">
+              <Icon icon="IconError" className="fill-ad-black" /> 이메일 인증이
+              필요해요
+            </span>
+            <Label size="medium" color="black">
+              인증 메일 전송
+            </Label>
+          </div>
+        </>
+      )}
       <Spacer className="h-24" />
       <section className="px-16 flex flex-col gap-8">
         <p className="text-body1">전화번호</p>
