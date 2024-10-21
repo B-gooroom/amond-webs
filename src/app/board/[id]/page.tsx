@@ -1,5 +1,6 @@
 "use client";
-import { Board, BoardLike } from "@/app/types/board";
+import { Board } from "@/app/types/board";
+import { User } from "@/app/types/type";
 import Header from "@/components/Header/page";
 import Icon from "@/components/Icon/page";
 import Label from "@/components/Label/page";
@@ -9,11 +10,9 @@ import { BoardAddLike } from "@/services/board-add-like";
 import { BoardDetail } from "@/services/board-detail";
 import { BoardViewIncrement } from "@/services/board-view-increment";
 import { ProfileUser } from "@/services/profile-user";
-import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-// import Comment from "../components/Comment";
 
 export interface BoardAddLikeProps {
   board_id: number;
@@ -23,9 +22,10 @@ export interface BoardAddLikeProps {
 export default function BoardDetailPage() {
   const { id } = useParams();
   const [boardDetail, setBoardDetail] = useState<Board[] | null>(null);
+  const [userData, setUserData] = useState<User | null>(null);
+
   const [likesCount, setLikesCount] = useState<number>(0); // 좋아요 수 상태 관리
   const [hasLiked, setHasLiked] = useState<boolean>(false); // 좋아요 여부 상태
-  const [userData, setUserData] = useState<User | null>(null);
 
   useEffect(() => {
     const postDetail = async () => {
@@ -38,13 +38,6 @@ export default function BoardDetailPage() {
       if (detailData) {
         setBoardDetail(detailData);
         setLikesCount(detailData[0].boardLike.length); // 좋아요 수 초기 설정
-        setHasLiked(
-          detailData[0].boardLike.some(
-            (data: BoardLike) => data.user_id === "현재 로그인된 사용자 ID"
-          )
-            ? false
-            : true
-        ); // 사용자가 좋아요를 눌렀는지 확인
       }
 
       await BoardViewIncrement({ id: id as string });
@@ -53,21 +46,31 @@ export default function BoardDetailPage() {
     postDetail();
   }, [id]);
 
+  useEffect(() => {
+    if (boardDetail && userData) {
+      const liked = boardDetail[0].boardLike.some(
+        (board) => board.user_id === userData.user_id
+      );
+      setHasLiked(liked);
+    }
+  }, [boardDetail, userData]);
+
   const addLike = async ({ board_id, user_id }: BoardAddLikeProps) => {
-    // const data = await BoardAddLike({ board_id, user_id });
-    // console.log("좋아요 추가", data);
-    // setLikesCount((prev) => prev + 1);
     if (hasLiked) {
       // 이미 좋아요를 눌렀다면 좋아요 취소 (좋아요 수 감소)
-      setLikesCount((prev) => prev - 1);
-      setHasLiked(false); // 좋아요 비활성화
-      // 좋아요 삭제 로직 (delete)
-      // await BoardRemoveLike({ board_id, user_id });
+      const data = await BoardAddLike({ board_id, user_id });
+      if (data) {
+        setLikesCount(likesCount - 1);
+        setHasLiked(false);
+      }
+      console.log("좋아요 제거", data);
     } else {
       // 좋아요 추가 (좋아요 수 증가)
-      setLikesCount((prev) => prev + 1);
-      setHasLiked(true); // 좋아요 활성화
       const data = await BoardAddLike({ board_id, user_id });
+      if (data) {
+        setLikesCount(likesCount + 1);
+        setHasLiked(true);
+      }
       console.log("좋아요 추가", data);
     }
   };
@@ -75,9 +78,6 @@ export default function BoardDetailPage() {
   if (!boardDetail) {
     return <p>Loading...</p>;
   }
-
-  console.log("userData", userData);
-  console.log("boardDetail", boardDetail);
 
   return (
     <>
@@ -97,9 +97,6 @@ export default function BoardDetailPage() {
           board_id,
         } = qna;
 
-        console.log("boardLike", boardLike);
-        console.log("user_id", user_id);
-
         return (
           <div key={index} className="px-16">
             <Label size="medium" color="gray">
@@ -111,7 +108,7 @@ export default function BoardDetailPage() {
                 // profile_image={qnaUser[0].profile_image}
                 userNickname={boardUser[0].nickname}
                 created_at={created_at}
-                isWriter={userData?.id === user_id}
+                isWriter={userData?.user_id === user_id}
               />
               <div className="text-subtitle1">
                 <span className="text-ad-brown-800">Q. </span>

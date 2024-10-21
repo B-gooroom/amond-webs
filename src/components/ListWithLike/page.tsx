@@ -1,5 +1,7 @@
+"use client";
 import { BoardLike } from "@/app/types/board";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import Icon from "../Icon/page";
 import Label from "../Label/page";
 import { Spacer } from "../Spacer/page";
@@ -25,6 +27,15 @@ export default function ListWithLike({
   likes,
   user_id,
 }: ListProps) {
+  const [hasLiked, setHasLiked] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (likes && user_id) {
+      const liked = likes.some((like) => like.user_id === user_id);
+      setHasLiked(liked);
+    }
+  }, []);
+
   return (
     <div className="flex-col flex gap-8">
       <Label size="small" color="gray">
@@ -56,7 +67,7 @@ export default function ListWithLike({
           <Spacer className="h-8" />
           <div className="flex gap-8 justify-end">
             <div className="flex gap-[2px] items-center">
-              {likes[0].user_id === user_id ? (
+              {hasLiked ? (
                 <Icon icon="IconFavoriteActiveSmall" size={12} />
               ) : (
                 <Icon icon="IconFavoriteSmall" size={12} />

@@ -35,6 +35,7 @@ export async function BoardAddLike({ board_id, user_id }: BoardAddLikeProps) {
       console.error("Error removing like:", deleteError);
     } else {
       console.log("Like removed");
+      return true;
     }
   } else {
     // 좋아요가 없으면 추가
@@ -46,6 +47,7 @@ export async function BoardAddLike({ board_id, user_id }: BoardAddLikeProps) {
       console.error("Error adding like:", insertError);
     } else {
       console.log("Like added");
+      return true;
     }
   }
 }
