@@ -29,6 +29,13 @@ export type BoardLike = {
   created_at: Date;
 };
 
+export type BoardBookmark = {
+  bookmark_id: number;
+  board_id: number;
+  user_id: string;
+  created_at: Date;
+};
+
 export type Board = {
   board_id: number;
   title: string;
@@ -45,4 +52,5 @@ export type Board = {
   boardImage: BoardImage[];
   boardLike: BoardLike[];
   boardUser: User[];
+  boardBookmark: BoardBookmark[];
 };

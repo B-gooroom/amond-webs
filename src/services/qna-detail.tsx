@@ -1,7 +1,8 @@
 "use client";
 
-import { QnaAddLikeProps } from "@/app/qna/[id]/page";
+import { QnaAddBookmarkProps, QnaAddLikeProps } from "@/app/qna/[id]/page";
 import { supabase } from "@/utils/supabase/client";
+import { ProfileUser } from "./profile/profile-user";
 
 interface QnaDetailProps {
   id: string;
@@ -157,12 +158,16 @@ export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
   }
 }
 
-export async function QnaAddBookmark({ qna_id, user_id }: QnaAddLikeProps) {
+export async function QnaAddBookmark({ qna_id }: QnaAddBookmarkProps) {
+  const user = await ProfileUser();
+
+  const userId = user?.user_id;
+
   const { data: existingBookmark, error: selectError } = await supabase
     .from("qna_bookmarks")
     .select("*")
     .eq("qna_id", qna_id)
-    .eq("user_id", user_id);
+    .eq("user_id", userId);
 
   if (selectError) {
     console.error("Error checking bookmark:", selectError);
@@ -174,7 +179,7 @@ export async function QnaAddBookmark({ qna_id, user_id }: QnaAddLikeProps) {
       .from("qna_bookmarks")
       .delete()
       .eq("qna_id", qna_id)
-      .eq("user_id", user_id);
+      .eq("user_id", userId);
 
     if (deleteError) {
       console.error("Error removing bookmark:", deleteError);
@@ -185,7 +190,7 @@ export async function QnaAddBookmark({ qna_id, user_id }: QnaAddLikeProps) {
   } else {
     const { error: insertError } = await supabase
       .from("qna_bookmarks")
-      .insert([{ qna_id, user_id }]);
+      .insert([{ qna_id, user_id: userId }]);
 
     if (insertError) {
       console.error("Error adding bookmark:", insertError);

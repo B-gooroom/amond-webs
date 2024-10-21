@@ -1,4 +1,6 @@
+import { BoardAddBookmarkProps } from "@/app/board/[id]/page";
 import { supabase } from "@/utils/supabase/client";
+import { ProfileUser } from "./profile/profile-user";
 
 interface BoardDetailProps {
   id: string;
@@ -84,6 +86,21 @@ export async function BoardDetail({ id }: BoardDetailProps) {
     return [];
   }
 
+  const { data: boardDetailBookmark, error: boardDetailBookmarkError } =
+    await supabase
+      .from("board_bookmarks")
+      .select("*")
+      .in("board_id", boardId)
+      .eq("user_id", userId);
+
+  if (boardDetailBookmarkError) {
+    console.error(
+      "Error fetching related data from another_table:",
+      boardDetailBookmarkError.message
+    );
+    return [];
+  }
+
   const result = boardDetailData.map((board) => ({
     ...board,
     boardCategory: categoryData.filter(
@@ -101,7 +118,53 @@ export async function BoardDetail({ id }: BoardDetailProps) {
     boardLike: boardDetailLike.filter(
       (like) => like.board_id === board.board_id
     ),
+    boardBookmark: boardDetailBookmark.filter(
+      (bookmark) => bookmark.board_id === board.board_id
+    ),
   }));
 
   return result;
+}
+
+export async function BoardAddBookmark({ board_id }: BoardAddBookmarkProps) {
+  const user = await ProfileUser();
+
+  const userId = user?.user_id;
+
+  const { data: existingBookmark, error: selectError } = await supabase
+    .from("board_bookmarks")
+    .select("*")
+    .eq("board_id", board_id)
+    .eq("user_id", userId);
+
+  if (selectError) {
+    console.error("Error checking bookmark:", selectError);
+    return;
+  }
+
+  if (existingBookmark && existingBookmark.length > 0) {
+    const { error: deleteError } = await supabase
+      .from("board_bookmarks")
+      .delete()
+      .eq("board_id", board_id)
+      .eq("user_id", userId);
+
+    if (deleteError) {
+      console.error("Error removing bookmark:", deleteError);
+    } else {
+      console.log("Bookmark removed");
+      return true;
+    }
+  } else {
+    const { error: insertError } = await supabase
+      .from("board_bookmarks")
+      .insert([{ board_id, user_id: userId }]);
+
+    if (insertError) {
+      console.error("Error adding bookmark:", insertError);
+    } else {
+      console.log("Bookmark added");
+      return true;
+    }
+  }
 }

@@ -7,7 +7,7 @@ import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
 import { BoardAddLike } from "@/services/board-add-like";
-import { BoardDetail } from "@/services/board-detail";
+import { BoardAddBookmark, BoardDetail } from "@/services/board-detail";
 import { BoardViewIncrement } from "@/services/board-view-increment";
 import { ProfileUser } from "@/services/profile/profile-user";
 import Image from "next/image";
@@ -19,6 +19,10 @@ export interface BoardAddLikeProps {
   user_id: string;
 }
 
+export interface BoardAddBookmarkProps {
+  board_id: number;
+}
+
 export default function BoardDetailPage() {
   const { id } = useParams();
   const [boardDetail, setBoardDetail] = useState<Board[] | null>(null);
@@ -26,6 +30,8 @@ export default function BoardDetailPage() {
 
   const [likesCount, setLikesCount] = useState<number>(0); // 좋아요 수 상태 관리
   const [hasLiked, setHasLiked] = useState<boolean>(false); // 좋아요 여부 상태
+
+  const [hasBookmarked, setHasBookmarked] = useState<boolean>(false); // 북마크 여부 상태
 
   useEffect(() => {
     const postDetail = async () => {
@@ -38,6 +44,7 @@ export default function BoardDetailPage() {
       if (detailData) {
         setBoardDetail(detailData);
         setLikesCount(detailData[0].boardLike.length); // 좋아요 수 초기 설정
+        setHasBookmarked(detailData[0].boardBookmark.length > 0);
       }
 
       await BoardViewIncrement({ id: id as string });
@@ -75,6 +82,15 @@ export default function BoardDetailPage() {
     }
   };
 
+  const addBookmark = async ({ board_id }: BoardAddBookmarkProps) => {
+    // console.log("북마크 추가");
+    const data = await BoardAddBookmark({ board_id });
+    // console.log(data);
+    if (data) {
+      setHasBookmarked((prev) => !prev);
+    }
+  };
+
   if (!boardDetail) {
     return <p>Loading...</p>;
   }
@@ -90,9 +106,9 @@ export default function BoardDetailPage() {
           boardCategory,
           created_at,
           boardUser,
-          boardComment,
+          // boardComment,
           boardImage,
-          boardLike,
+          // boardLike,
           user_id,
           board_id,
         } = qna;
@@ -139,8 +155,11 @@ export default function BoardDetailPage() {
                 />
                 <span className="text-caption1">{likesCount}</span>
               </div>
-              <div>
-                <Icon icon="IconBookmark" size={24} />
+              <div onClick={() => addBookmark({ board_id })}>
+                <Icon
+                  icon={hasBookmarked ? "IconBookmarkActive" : "IconBookmark"}
+                  size={24}
+                />
               </div>
               <div>
                 <Icon icon="IconShare" size={24} />

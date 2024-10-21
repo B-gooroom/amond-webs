@@ -18,6 +18,10 @@ export interface QnaAddLikeProps {
   user_id: string;
 }
 
+export interface QnaAddBookmarkProps {
+  qna_id: number;
+}
+
 export default function QnaDetailPage() {
   const { id } = useParams();
   const [qnaDetail, setQnaDetail] = useState<QnA[] | null>(null);
@@ -62,9 +66,9 @@ export default function QnaDetailPage() {
     }
   };
 
-  const addBookmark = async ({ qna_id, user_id }: QnaAddLikeProps) => {
+  const addBookmark = async ({ qna_id }: QnaAddBookmarkProps) => {
     // console.log("북마크 추가");
-    const data = await QnaAddBookmark({ qna_id, user_id });
+    const data = await QnaAddBookmark({ qna_id });
     // console.log(data);
     if (data) {
       setHasBookmarked((prev) => !prev);
@@ -129,7 +133,7 @@ export default function QnaDetailPage() {
                 />
                 <span className="text-caption1">{likesCount}</span>
               </div>
-              <div onClick={() => addBookmark({ qna_id, user_id })}>
+              <div onClick={() => addBookmark({ qna_id })}>
                 <Icon
                   icon={hasBookmarked ? "IconBookmarkActive" : "IconBookmark"}
                   size={24}

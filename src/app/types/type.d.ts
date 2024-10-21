@@ -43,6 +43,13 @@ export type QnALike = {
   created_at: Date;
 };
 
+export type QnABookmark = {
+  bookmark_id: number;
+  qna_id: number;
+  user_id: string;
+  created_at: Date;
+};
+
 export type QnA = {
   qna_id: number;
   title: string;
@@ -59,6 +66,7 @@ export type QnA = {
   qnaImage: QnAImage[];
   qnaUser: User[];
   qnaLike: QnALike[];
+  qnaBookmark: QnABookmark[];
 };
 
 export type QnAPopular = {
