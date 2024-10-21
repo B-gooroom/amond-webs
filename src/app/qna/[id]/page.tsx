@@ -6,6 +6,7 @@ import { Spacer } from "@/components/Spacer/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
 import { ProfileUser } from "@/services/profile-user";
 import { QnaAddLike, QnaDetail } from "@/services/qna-detail";
+import { QnaViewIncrement } from "@/services/qna-view-increment";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,12 +18,12 @@ export interface QnaAddLikeProps {
   user_id: string;
 }
 
-const QnaDetailPage = () => {
+export default function QnaDetailPage() {
   const { id } = useParams();
   const [qnaDetail, setQnaDetail] = useState<QnA[] | null>(null);
   const [userData, setUserData] = useState<User | null>(null);
 
-  const [likesCount, setLikesCount] = useState<number>(0); // 좋아요 수 상태 관리
+  const [likesCount, setLikesCount] = useState<number | null>(null); // 좋아요 수 상태 관리
   const [hasLiked, setHasLiked] = useState<boolean>(false); // 좋아요 여부 상태
 
   useEffect(() => {
@@ -32,39 +33,46 @@ const QnaDetailPage = () => {
       const detailData = await QnaDetail({ id: id as string });
       if (detailData) {
         setQnaDetail(detailData);
+        setLikesCount(detailData[0].qnaLike.length);
       }
       if (userData) {
         setUserData(userData);
       }
 
-      // await QnaViewIncrement({ id: id as string });
+      await QnaViewIncrement({ id: id as string });
     };
 
     postDetail();
   }, [id]);
 
+  useEffect(() => {
+    if (qnaDetail && userData) {
+      const liked = qnaDetail[0].qnaLike.some(
+        (qna) => qna.user_id === userData.user_id
+      );
+      setHasLiked(liked);
+    }
+  }, [qnaDetail, userData]);
+
   if (!qnaDetail) {
     return <p>Loading...</p>;
   }
 
-  console.log("userData", userData);
-
   const addLike = async ({ qna_id, user_id }: QnaAddLikeProps) => {
-    // const data = await BoardAddLike({ board_id, user_id });
-    // console.log("좋아요 추가", data);
-    // setLikesCount((prev) => prev + 1);
     if (hasLiked) {
-      // 이미 좋아요를 눌렀다면 좋아요 취소 (좋아요 수 감소)
-      setLikesCount((prev) => prev - 1);
-      setHasLiked(false); // 좋아요 비활성화
-      // 좋아요 삭제 로직 (delete)
-      // await BoardRemoveLike({ board_id, user_id });
-    } else {
-      // 좋아요 추가 (좋아요 수 증가)
-      setLikesCount((prev) => prev + 1);
-      setHasLiked(true); // 좋아요 활성화
+      if (likesCount === null) return;
       const data = await QnaAddLike({ qna_id, user_id });
-      console.log("좋아요 추가", data);
+      if (data) {
+        setLikesCount(likesCount - 1);
+        setHasLiked(false);
+      }
+    } else {
+      if (likesCount === null) return;
+      const data = await QnaAddLike({ qna_id, user_id });
+      if (data) {
+        setLikesCount(likesCount + 1);
+        setHasLiked(true);
+      }
     }
   };
 
@@ -86,7 +94,7 @@ const QnaDetailPage = () => {
           qna_id,
         } = qna;
 
-        // console.log("qnaDetail", qnaLike);
+        console.log("qnaLike", qnaLike);
 
         return (
           <div key={index} className="px-16">
@@ -148,6 +156,4 @@ const QnaDetailPage = () => {
       })}
     </>
   );
-};
-
-export default QnaDetailPage;
+}

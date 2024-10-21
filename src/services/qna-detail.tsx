@@ -119,6 +119,7 @@ export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
       console.error("Error removing like:", deleteError);
     } else {
       console.log("Like removed");
+      return true;
     }
   } else {
     // 좋아요가 없으면 추가
@@ -130,6 +131,7 @@ export async function QnaAddLike({ qna_id, user_id }: QnaAddLikeProps) {
       console.error("Error adding like:", insertError);
     } else {
       console.log("Like added");
+      return true;
     }
   }
 }
