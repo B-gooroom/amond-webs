@@ -5,6 +5,7 @@ import Icon from "@/components/Icon/page";
 import Input from "@/components/Input/page";
 import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
+import Tooltip from "@/components/Tooltip/page";
 import { ProfileUser } from "@/services/profile-user";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -68,7 +69,11 @@ export default function Account() {
         <div className="flex justify-between">
           <span className="text-body1">이메일 아이디</span>
           <span className="text-caption2 flex gap-[2px] items-center">
-            <Icon icon="IconHelp" size={12} /> 아이디 변경 안내
+            <Icon icon="IconHelp" size={12} />
+            <Tooltip
+              text="아이디 변경 안내"
+              tooltipText="이메일 아이디는 직접 변경이 불가하고, 고객센터를 통해서만 변경이 가능해요"
+            />
           </span>
         </div>
         <div className="text-ad-gray-500">
