@@ -9,7 +9,7 @@ import Tab from "@/components/Tab/page";
 import {
   BoardFavoriteByUser,
   QnaFavoriteByUser,
-} from "@/services/setting/profile-favorite-by-user";
+} from "@/services/setting/setting-favorite-by-user";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
