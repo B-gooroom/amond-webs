@@ -30,7 +30,7 @@ const settingItems = [
   {
     title: "좋아요",
     body: "좋아요 저장된 게시글",
-    path: "/setting/like",
+    path: "/setting/favorite",
     icon: "IconFavorite",
   },
   {
