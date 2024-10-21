@@ -1,5 +1,6 @@
 "use client";
 import { BoardLike } from "@/app/types/board";
+import classNames from "classnames";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Icon from "../Icon/page";
@@ -42,7 +43,13 @@ export default function ListWithLike({
         {label}
       </Label>
       <p className="text-body2">{title}</p>
-      <div className="flex gap-16 w-full border-b pb-12">
+      <div
+        className={classNames(
+          "flex justify-between gap-16 w-full border-b pb-12 items-end"
+          // images ? "items-end" : "items-start"
+          // TODO: 이미지 있을 때, 없을 때 스타일링 items-start, items-end 변경
+        )}
+      >
         <div className="flex-col flex max-w-full">
           <span className="text-caption1 overflow-hidden text-ellipsis line-clamp-2 break-words">
             {description}
@@ -52,9 +59,10 @@ export default function ListWithLike({
             조회수 {views}
           </span>
         </div>
-        <div className="flex flex-col justify-end">
+
+        <div>
           {images && (
-            <div className="rounded-2xl overflow-hidden w-[64px] h-[64px] flex-shrink-0 border">
+            <div className="rounded-2xl overflow-hidden w-[64px] h-[64px] flex-shrink-0">
               <Image
                 src={images}
                 alt="썸네일 이미지"
@@ -64,21 +72,25 @@ export default function ListWithLike({
               />
             </div>
           )}
-          <Spacer className="h-8" />
-          <div className="flex gap-8 justify-end">
-            <div className="flex gap-[2px] items-center">
-              {hasLiked ? (
-                <Icon icon="IconFavoriteActiveSmall" size={12} />
-              ) : (
-                <Icon icon="IconFavoriteSmall" size={12} />
-              )}
-              <span className="text-caption1 text-ad-gray-500">
-                {likes.length}
-              </span>
-            </div>
-            <div className="flex gap-[2px] items-center">
-              <Icon icon="IconCommentSmall" size={12} />
-              <span className="text-caption1 text-ad-gray-500">{comments}</span>
+          <div className="flex flex-col justify-end">
+            <Spacer className="h-8" />
+            <div className="flex gap-8 justify-end">
+              <div className="flex gap-[2px] items-center">
+                {hasLiked ? (
+                  <Icon icon="IconFavoriteActiveSmall" size={12} />
+                ) : (
+                  <Icon icon="IconFavoriteSmall" size={12} />
+                )}
+                <span className="text-caption1 text-ad-gray-500">
+                  {likes.length}
+                </span>
+              </div>
+              <div className="flex gap-[2px] items-center">
+                <Icon icon="IconCommentSmall" size={12} />
+                <span className="text-caption1 text-ad-gray-500">
+                  {comments}
+                </span>
+              </div>
             </div>
           </div>
         </div>
