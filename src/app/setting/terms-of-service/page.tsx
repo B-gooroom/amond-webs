@@ -38,6 +38,12 @@ export default function TermsOfService() {
           </div>
         );
       })}
+      <div className="px-16">
+        <p className="text-body2">부칙</p>
+        <p className="text-caption1">
+          이 약관은 2024년 11월 01일부터 적용됩니다.
+        </p>
+      </div>
     </div>
   );
 }
