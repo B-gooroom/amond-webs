@@ -6,4 +6,7 @@ export const EXCLUDED_ROUTES = [
   "/login",
   "/auth/signin",
   "/auth/signup",
+  "/setting/terms-of-service",
+  "/setting/privacy-policy",
+  "/setting/customer-service",
 ];
