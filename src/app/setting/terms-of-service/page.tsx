@@ -31,13 +31,14 @@ export default function TermsOfService() {
         const { title, content } = term;
         return (
           <div key={index} className="px-16">
-            <Spacer className="h-8" />
+            <Spacer className="h-16" />
             <h2 className="text-body2">{title}</h2>
-            <Spacer className="h-4" />
+            <Spacer className="h-8" />
             <p className="text-caption1">{formatContent(content)}</p>
           </div>
         );
       })}
+      <Spacer className="h-8" />
       <div className="px-16">
         <p className="text-body2">부칙</p>
         <p className="text-caption1">
