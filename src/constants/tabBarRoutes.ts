@@ -19,6 +19,7 @@ export const HIDE_TABBAR_ROUTES = [
   "/setting/bookmark", // 설정 - 북마크
   "/setting/notification", // 설정 - 알림 설정
   "/setting/terms-of-service", // 설정 - 서비스 이용약관
+  "/setting/privacy-policy", // 설정 - 개인정보 처리방침
   "/report", // 신고하기
 ];
 

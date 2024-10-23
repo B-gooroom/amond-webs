@@ -28,3 +28,12 @@ export type Terms = {
   effective_date: Date;
   created_at: Date;
 };
+
+export type PrivacyPolicy = {
+  privacy_id: number;
+  version: string;
+  title: string;
+  content: string;
+  effective_date: Date;
+  created_at: Date;
+};
