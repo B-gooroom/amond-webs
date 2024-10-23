@@ -1,5 +1,5 @@
 "use client";
-import { formatDate } from "@/utils/formateDate";
+import { formatDate } from "@/utils/formatDate";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

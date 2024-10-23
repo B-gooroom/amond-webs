@@ -2,7 +2,7 @@
 import { AnnouncementList } from "@/app/types/setting";
 import Header from "@/components/Header/page";
 import { SettingNotice } from "@/services/setting-notice";
-import { formatDate } from "@/utils/formateDate";
+import { formatDate } from "@/utils/formatDate";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";

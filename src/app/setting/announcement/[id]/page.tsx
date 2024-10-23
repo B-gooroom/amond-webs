@@ -3,7 +3,7 @@ import { type AnnouncementDetail } from "@/app/types/setting";
 import Header from "@/components/Header/page";
 import { Spacer } from "@/components/Spacer/page";
 import { SettingNoticeDetail } from "@/services/setting-notice";
-import { formatDate } from "@/utils/formateDate";
+import { formatDate } from "@/utils/formatDate";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
