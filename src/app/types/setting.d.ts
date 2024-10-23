@@ -19,3 +19,12 @@ export type AnnouncementDetail = {
   created_at: Date;
   is_active: boolean;
 };
+
+export type Terms = {
+  terms_id: number;
+  version: string;
+  title: string;
+  content: string;
+  effective_date: Date;
+  created_at: Date;
+};
