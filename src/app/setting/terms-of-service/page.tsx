@@ -26,7 +26,9 @@ export default function TermsOfService() {
     <div>
       <Header title="이용약관" leftItem="IconLeftArrow" />
       <Spacer className="h-16" />
-      <p className="text-body1 px-16">아몬드 회원 이용약관</p>
+      <p className="text-body1 px-16">
+        아몬드의 이용약관은 다음과 같은 내용을 담고 있습니다.
+      </p>
       {termsData?.map((term, index) => {
         const { title, content } = term;
         return (
