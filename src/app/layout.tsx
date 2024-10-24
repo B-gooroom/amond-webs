@@ -1,5 +1,6 @@
 "use client";
 
+import { Modal } from "@/components/Modal/page";
 import TabBar from "@/components/TabBar/page";
 import { EXCLUDED_ROUTES } from "@/constants/excludedRoutes";
 import {
@@ -18,6 +19,9 @@ function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const [hideTabBar, setHideTabBar] = useState<boolean>(false); // TabBar 숨기기 상태
   const { data, loading } = useAuth(); // 이제 useAuth를 사용 가능
   const router = useRouter();
+
+  const [modalConfirm, setModalConfirm] = useState<boolean>(false);
+  const [redirectAfterModal, setRedirectAfterModal] = useState<boolean>(false); // 리다이
 
   /** native 방식 */
   useEffect(() => {
@@ -62,20 +66,33 @@ function ProtectedLayout({ children }: { children: React.ReactNode }) {
   }, [currentPath]);
 
   useEffect(() => {
-    // 현재 경로 확인
     const pathname = window.location.pathname;
 
     if (!loading && !data && !EXCLUDED_ROUTES.includes(pathname)) {
-      // console.log("Redirecting to login");
-      router.push(`/auth/signin?redirectTo=${encodeURIComponent(pathname)}`);
+      // 로그인되지 않은 경우에만 모달을 보여줌
+      setModalConfirm(true);
     }
+  }, [data, loading, currentPath]);
 
-    // loading이 끝났고, 로그인된 사용자가 없으며 예외 경로가 아닌 경우 리다이렉트 실행
-  }, [currentPath, data, loading, router]);
+  const handleModalConfirm = () => {
+    setModalConfirm(false); // 모달을 닫음
+    // setRedirectAfterModal(true); // 리다이렉트 준비 상태로 변경
+    router.push(`/auth/signin?redirectTo=${encodeURIComponent(currentPath)}`);
+  };
 
   return (
     // <div className={hideTabBar ? "h-[100vh]" : ""}>
     <div>
+      {modalConfirm && (
+        <Modal
+          body="반가워요! 로그인 후 다양한 서비스를 이용해 보세요"
+          isOpen={true}
+          onClose={() => setModalConfirm(false)} // 모달 닫기
+          type="double"
+          items={["회원가입", "로그인"]}
+          onConfirm={handleModalConfirm} // 모달 확인 버튼 클릭 시
+        />
+      )}
       {children}
       <div className="pb-[79px]">
         {!hideTabBar && isNative === false && <TabBar />}
