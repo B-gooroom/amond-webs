@@ -4,13 +4,14 @@ import Icon from "@/components/Icon/page";
 import Label from "@/components/Label/page";
 import { Spacer } from "@/components/Spacer/page";
 import UserInfoDetail from "@/components/UserInfoDetail/page";
+import { ImageSignedUrl } from "@/services/image-signed-url";
 import { ProfileUser } from "@/services/profile/profile-user";
 import { QnaAddBookmark, QnaAddLike, QnaDetail } from "@/services/qna-detail";
 import { QnaViewIncrement } from "@/services/qna-view-increment";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { QnA, User } from "../../types/type";
+import { QnA, QnAImage, User } from "../../types/type";
 import Comment from "../components/Comment";
 
 export interface QnaAddLikeProps {
@@ -31,6 +32,8 @@ export default function QnaDetailPage() {
 
   const [hasBookmarked, setHasBookmarked] = useState<boolean>(false); // 북마크 여부 상태
 
+  const [signedImageUrls, setSignedImageUrls] = useState<string[]>([]); // 서명된 URL들
+
   useEffect(() => {
     const postDetail = async () => {
       const userData = await ProfileUser();
@@ -41,6 +44,17 @@ export default function QnaDetailPage() {
         setLikesCount(detailData[0].qnaLike.length);
         setHasLiked(detailData[0].qnaLike.length > 0);
         setHasBookmarked(detailData[0].qnaBookmark.length > 0);
+
+        // 이미지 URL을 서명된 URL로 변환하는 작업
+        const imageUrls = await Promise.all(
+          detailData[0].qnaImage.map(async (image: QnAImage) => {
+            console.log("image", image);
+
+            const signedUrl = await ImageSignedUrl(image.image_url);
+            return signedUrl;
+          })
+        );
+        setSignedImageUrls(imageUrls);
       }
       if (userData) {
         setUserData(userData);
@@ -73,6 +87,8 @@ export default function QnaDetailPage() {
       setHasBookmarked((prev) => !prev);
     }
   };
+
+  console.log("qnaDetail", qnaDetail);
 
   return (
     <>
@@ -110,17 +126,21 @@ export default function QnaDetailPage() {
               </div>
               <p className="text-subtitle2">{content}</p>
             </div>
-            {qnaImage && (
+            {signedImageUrls.length > 0 && (
               <div className="flex gap-16">
-                {qnaImage.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image.image_url}
-                    alt="하다프로필이미지"
-                    width={48}
-                    height={48}
-                  />
-                ))}
+                {signedImageUrls.map((signedUrl, index) => {
+                  console.log("signedUrl", signedUrl);
+
+                  return (
+                    <Image
+                      key={index}
+                      src={signedUrl || ""}
+                      alt="이미지"
+                      width={64}
+                      height={64}
+                    />
+                  );
+                })}
               </div>
             )}
             <Spacer className="h-16" />

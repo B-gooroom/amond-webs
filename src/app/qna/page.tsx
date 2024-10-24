@@ -2,7 +2,7 @@
 
 import type { QnA, QnAPopular } from "@/app/types/type";
 import Header from "@/components/Header/page";
-import List from "@/components/List/page";
+import { List } from "@/components/List/page";
 import PostButton from "@/components/PostButton/page";
 import { Spacer } from "@/components/Spacer/page";
 import { QnaList } from "@/services/qna-list";
@@ -70,7 +70,6 @@ export default function QnA() {
             path="/info"
             alt="아몬드 소개 배너"
             imageUrl="/images/HadaInfoBanner.png"
-            // imageUrl="https://xtlpqspaohusobjcvsas.supabase.co/storage/v1/object/sign/amond-img/banner/info.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJhbW9uZC1pbWcvYmFubmVyL2luZm8uanBnIiwiaWF0IjoxNzI3OTY3MTk4LCJleHAiOjE3NTk1MDMxOTh9.c8p9hGaZMJej4zUMxlbUIMi4H6B1jrA1goQ21pHcdgA&t=2024-10-03T14%3A53%3A18.287Z"
           />
         </div>
         <Spacer className="h-32" />
@@ -92,7 +91,6 @@ export default function QnA() {
               qnaImage,
             } = qna;
 
-            // TODO: imageUrl array인지 object인지 확인
             const imageUrl = qnaImage[0]?.image_url || "";
 
             return (

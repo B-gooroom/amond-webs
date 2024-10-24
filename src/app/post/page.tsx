@@ -7,6 +7,7 @@ import Input from "@/components/Input/page";
 import { Spacer } from "@/components/Spacer/page";
 import { PostBoard } from "@/services/post-board";
 import { PostQna } from "@/services/post-qna";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import SelectBoard from "./components/SelectBoard";
@@ -18,6 +19,7 @@ export default function Post() {
   const [category, setCategory] = useState<number>(1);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [photos, setPhotos] = useState<File[]>([]);
 
   const handleBackClick = () => {
     router.back(); // history의 이전 페이지로 이동
@@ -48,7 +50,12 @@ export default function Post() {
 
     /** 게시글 INSERT */
     if (board === 0) {
-      const { postId, error } = await PostQna({ title, content, category });
+      const { postId, error } = await PostQna({
+        title,
+        content,
+        category,
+        photos,
+      });
       if (error) {
         console.error("Error:", error);
         alert("게시글 작성에 실패했습니다.");
@@ -66,6 +73,16 @@ export default function Post() {
         router.push(`/board/${postId}`);
       }
     }
+  };
+
+  // 이미지 추가 함수
+  const handleAddPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (photos.length + files.length > 10) {
+      alert("최대 10장까지 업로드 가능합니다.");
+      return;
+    }
+    setPhotos((prevPhotos) => [...prevPhotos, ...files]);
   };
 
   return (
@@ -115,10 +132,36 @@ export default function Post() {
           <span className="underline text-ad-brown-800">글쓰기 가이드</span>를
           확인해주세요
         </p>
-        <div className="border rounded-2xl w-[64px] h-[64px] flex flex-col items-center justify-center">
-          <Icon icon="IconAddPhotoStroke" />
-          <span className="text-caption1 text-ad-gray-500">0 /10</span>
-        </div>
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          multiple
+          style={{ display: "none" }}
+          onChange={handleAddPhoto}
+        />
+        <label htmlFor="fileInput" className="flex gap-8">
+          <div className="border rounded-2xl w-[64px] h-[64px] flex flex-col items-center justify-center">
+            <Icon icon="IconAddPhotoStroke" />
+            <span className="text-caption1 text-ad-gray-500">
+              {photos.length} /10
+            </span>
+          </div>
+          {photos.map((photo, index) => (
+            <div
+              key={index}
+              className="rounded-2xl w-[64px] h-[64px] overflow-hidden"
+            >
+              <Image
+                src={URL.createObjectURL(photo)}
+                alt="photo"
+                width={64}
+                height={64}
+                className="object-cover w-full h-full"
+              />
+            </div>
+          ))}
+        </label>
       </section>
       <div className="fixed bottom-0 w-full px-16 pt-14 pb-[34px] -ml-[1px] max-w-[500px]">
         <Button

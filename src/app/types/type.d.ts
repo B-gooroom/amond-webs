@@ -60,6 +60,7 @@ export type QnA = {
   updated_at: Date;
   is_deleted: boolean;
   is_popular: boolean;
+  thumbnail_image_url: string;
   qnaCategory: Category[];
   qnaComment: QnAComment[];
   qnaView: QnAView[];
