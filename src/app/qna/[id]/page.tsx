@@ -150,7 +150,10 @@ export default function QnaDetailPage() {
             )}
             <Spacer className="h-16" />
             <div className="pb-[32px] border-b flex gap-16">
-              <div onClick={() => addLike({ qna_id })} className="w-fit">
+              <div
+                onClick={() => addLike({ qna_id })}
+                className="flex items-center"
+              >
                 <Icon
                   icon={hasLiked ? "IconFavoriteActive" : "IconFavorite"}
                   size={24}
