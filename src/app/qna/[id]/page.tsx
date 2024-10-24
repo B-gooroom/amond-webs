@@ -127,21 +127,26 @@ export default function QnaDetailPage() {
               <p className="text-subtitle2">{content}</p>
             </div>
             {signedImageUrls.length > 0 && (
-              <div className="flex gap-16">
-                {signedImageUrls.map((signedUrl, index) => {
-                  console.log("signedUrl", signedUrl);
+              <>
+                <Spacer className="h-32" />
+                <div className="flex gap-16 rounded-2xl overflow-hidden">
+                  {signedImageUrls.map((signedUrl, index) => {
+                    console.log("signedUrl", signedUrl);
 
-                  return (
-                    <Image
-                      key={index}
-                      src={signedUrl || ""}
-                      alt="이미지"
-                      width={64}
-                      height={64}
-                    />
-                  );
-                })}
-              </div>
+                    return (
+                      <Image
+                        key={index}
+                        src={signedUrl || ""}
+                        alt="이미지"
+                        width={343}
+                        height={343}
+                        quality={100}
+                        className="object-cover w-full h-full"
+                      />
+                    );
+                  })}
+                </div>
+              </>
             )}
             <Spacer className="h-16" />
             <div className="pb-[32px] border-b flex gap-16">
