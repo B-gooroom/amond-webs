@@ -4,7 +4,8 @@ export async function ImageSignedUrl(path: string) {
   // console.log("path", path);
   const pathName = path.replace(
     "https://xtlpqspaohusobjcvsas.supabase.co/storage/v1/object/sign/test_bucket/",
-    "public/"
+    // "public/"
+    ""
   );
 
   const { data, error } = await supabase.storage
