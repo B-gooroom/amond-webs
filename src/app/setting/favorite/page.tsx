@@ -2,7 +2,7 @@
 import { Board } from "@/app/types/board";
 import { QnA } from "@/app/types/type";
 import Header from "@/components/Header/page";
-import List from "@/components/List/page";
+import { List } from "@/components/List/page";
 import ListWithLike from "@/components/ListWithLike/page";
 import { Spacer } from "@/components/Spacer/page";
 import Tab from "@/components/Tab/page";

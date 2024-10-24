@@ -33,7 +33,7 @@ export async function QnaDetail({ id }: QnaDetailProps) {
       "Error fetching related data from another_table:",
       categoryDataError.message
     );
-    return qnaDetailData; // 추가 데이터가 없더라도 QnA
+    return []; // 추가 데이터가 없더라도 QnA
   }
 
   // 3. 조회된 QnA 데이터의 id 목록 추출
@@ -48,7 +48,7 @@ export async function QnaDetail({ id }: QnaDetailProps) {
       "Error fetching related data from another_table:",
       qnaDetailCommentError.message
     );
-    return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
+    return []; // 추가 데이터가 없더라도 QnA 데이터를 반환
   }
 
   // 4. qna_id로 user 데이터를 가져옴
@@ -62,7 +62,7 @@ export async function QnaDetail({ id }: QnaDetailProps) {
       "Error fetching related data from another_table:",
       qnaDetailUserDataError.message
     );
-    return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
+    return []; // 추가 데이터가 없더라도 QnA 데이터를 반환
   }
 
   // 5. qna_likes QnA의 id를 기반으로 추가 정보를 가져옴
@@ -77,7 +77,7 @@ export async function QnaDetail({ id }: QnaDetailProps) {
       "Error fetching related data from another_table:",
       qnaDetailLikeError.message
     );
-    return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
+    return []; // 추가 데이터가 없더라도 QnA 데이터를 반환
   }
 
   // 6. qna_id로 user가 해당 QnA를 북마크 했는지 확인
@@ -93,10 +93,19 @@ export async function QnaDetail({ id }: QnaDetailProps) {
       "Error fetching related data from another_table:",
       qnaDetailBookmarkError.message
     );
-    return qnaDetailData; // 추가 데이터가 없더라도 QnA 데이터를 반환
+    return []; // 추가 데이터가 없더라도 QnA 데이터를 반환
   }
 
-  console.log("qnaDetailBookmark", qnaDetailBookmark);
+  const { data: qnaDetailImageData, error: qnaDetailImageDataError } =
+    await supabase.from("qna_images").select("*").in("qna_id", qnaId);
+
+  if (qnaDetailImageDataError) {
+    console.error(
+      "Error fetching related data from another_table:",
+      qnaDetailImageDataError.message
+    );
+    return []; // 추가 데이터가 없더라도 QnA 데이터를 반환
+  }
 
   const result = qnaDetailData.map((qna) => ({
     ...qna,
@@ -111,6 +120,7 @@ export async function QnaDetail({ id }: QnaDetailProps) {
     qnaBookmark: qnaDetailBookmark.filter(
       (bookmark) => bookmark.qna_id === qna.qna_id
     ),
+    qnaImage: qnaDetailImageData.filter((image) => image.qna_id === qna.qna_id),
   }));
 
   return result;

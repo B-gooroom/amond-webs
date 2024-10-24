@@ -6,6 +6,7 @@ export async function QnaList() {
   const { data: qnaListData, error: qnaListError } = await supabase
     .from("qna")
     .select("*")
+    .eq("is_deleted", false)
     .order("created_at", { ascending: false });
 
   if (qnaListError) {

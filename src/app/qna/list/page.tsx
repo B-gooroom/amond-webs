@@ -2,7 +2,7 @@
 import { QnA } from "@/app/types/type";
 import Header from "@/components/Header/page";
 import Label from "@/components/Label/page";
-import List from "@/components/List/page";
+import { List } from "@/components/List/page";
 import { Spacer } from "@/components/Spacer/page";
 import { QnaList } from "@/services/qna-list";
 import Link from "next/link";
@@ -69,6 +69,7 @@ export default function QnAList() {
             qnaComment,
             qnaView,
             qnaImage,
+            thumbnail_image_url,
           } = list;
 
           // TODO: imageUrl array인지 object인지 확인
