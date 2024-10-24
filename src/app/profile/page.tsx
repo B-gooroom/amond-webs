@@ -29,7 +29,7 @@ export default function Profile() {
   // console.log("userData", userData);
 
   return (
-    <div className="w-full h-[100vh]">
+    <div className="w-full]">
       <Header title="소개하다" rightItems={["setting", "notification"]} />
       {userData ? (
         <section className="h-[230px]">

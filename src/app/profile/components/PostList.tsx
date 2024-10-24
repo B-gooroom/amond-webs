@@ -39,7 +39,16 @@ export default function PostList({ selectedTab }: PostListProps) {
         (postQna?.length ? (
           <>
             {postQna.map((post, index) => {
-              const { title, content, qnaCategory, qnaComment, qnaView } = post;
+              const {
+                title,
+                content,
+                qnaCategory,
+                qnaComment,
+                qnaView,
+                qnaImage,
+              } = post;
+
+              const imageUrl = qnaImage[0]?.image_url || "";
 
               return (
                 <div key={index}>
@@ -50,7 +59,7 @@ export default function PostList({ selectedTab }: PostListProps) {
                     description={content}
                     comments={qnaComment.length}
                     views={qnaView[0]?.view_count}
-                    // images="/images/1.jpg"
+                    images={imageUrl ? imageUrl : ""}
                   />
                 </div>
               );

@@ -9,7 +9,11 @@ export async function QnaListByUser() {
   const { data: qnaListData, error: qnaListError } = await supabase
     .from("qna")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("is_deleted", false)
+    .order("created_at", {
+      ascending: false,
+    });
 
   if (qnaListError) {
     console.error("Error fetching qna:", qnaListError.message);
